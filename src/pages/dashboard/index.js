@@ -116,9 +116,8 @@ const DashboardDefault = () => {
         const interval = setInterval(() => {
             fetch('/get_real_time_data?' + new URLSearchParams({asset: asset, index: time_point})).then(res => res = res.json()).then(data => {
                 var energy_avg = data[0].power_avg;
-                var idle = data[0].idle_time;
+                var idle = 100 - data[0].idle_time;
                 var piece_count = data[0].items;
-                //console.log(energy_avg, idle, piece_count);
                 setTimePoint(time_point + 1);
                 setChartEnergy(update_chart(chart_energy, energy_avg));
                 setChartPieceCount(update_chart(chart_piece_count, piece_count));
@@ -139,17 +138,17 @@ const DashboardDefault = () => {
             </Grid>
             <Grid item xs={4} sx={{ mb: -2.25 }}>
                 <Item>
-                    <SLChart data={chart_energy} series_type={'energy usage'}/>
+                    <SLChart data={chart_energy} series_type={'Energy Usage'}/>
                 </Item>
             </Grid>
             <Grid item xs={4} sx={{ mb: -2.25 }}>
                 <Item>
-                    <SLChart data={chart_idle} series_type={'idle %'}/>
+                    <SLChart data={chart_idle} series_type={'Activity %'}/>
                 </Item>
             </Grid>
             <Grid item xs={4} sx={{ mb: -2.25 }}>
                 <Item>
-                    <SLChart data={chart_piece_count} series_type={'piece count'}/>
+                    <SLChart data={chart_piece_count} series_type={'Piece Count'}/>
                 </Item>
             </Grid>
             <Grid item xs={4} sx={{ mb: -2.25 }}>
