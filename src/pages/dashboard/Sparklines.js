@@ -166,9 +166,6 @@ function SLChart(props){
     fill: {
       opacity: 0.3,
     },
-    yaxis: {
-      min: 0
-    },
     colors: ['#DCE6EC'],
     title: {
       text: props.data[props.data.length - 1],
