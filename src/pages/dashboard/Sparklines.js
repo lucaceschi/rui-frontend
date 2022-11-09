@@ -166,6 +166,9 @@ function SLChart(props){
     fill: {
       opacity: 0.3,
     },
+    xaxis: {
+      categories: ['3 min ago', '2 min ago', '1 min ago', 'now'], //to decide
+    },
     colors: ['#DCE6EC'],
     title: {
       text: props.data[props.data.length - 1],
