@@ -8,14 +8,15 @@ import Chart from 'react-apexcharts';
 // third-party
 import ReactApexChart from 'react-apexcharts';
 
-class SLChart extends React.Component {
+/*class SLChart extends React.Component {
         constructor(props) {
           super(props);
-
+          console.log(this.props.data + 'ciao');
           this.state = {
 
             series: [{
-              data: [292, 383, 489, 483, 4894, 339]
+              name: 'energy usage',
+              data: props.data
             }],
             options: {
               chart: {
@@ -134,33 +135,63 @@ class SLChart extends React.Component {
           };
         }
 
-
-
-        render() {
-          return (
-
-      <div className="container">
-  <div className="row">
-    <div className="col-sm">
-      <div id="chart-spark1">
-  <ReactApexChart options={this.state.options} series={this.state.series} type="area" height={160} />
-</div>
-    </div>
-    <div className="col-sm">
-      <div id="chart-spark2">
-  <ReactApexChart options={this.state.optionsSpark2} series={this.state.seriesSpark2} type="area" height={160} />
-</div>
-    </div>
-    <div className="col-sm">
-      <div id="chart-spark3">
-  <ReactApexChart options={this.state.optionsSpark3} series={this.state.seriesSpark3} type="area" height={160} />
-</div>
-    </div>
-  </div>
-</div>
-
-
+        render(){
+          return(
+              <div>
+                <ReactApexChart options={this.state.options} series={this.state.series} type={'area'} height={160}/>
+              </div>
           );
         }
+}*/
+
+function SLChart(props){
+  const series = [
+    {
+      name: props.series_type,
+      data: props.data
+    }
+  ];
+
+  const options = {
+    chart: {
+      type: 'area',
+      height: 160,
+      sparkline: {
+        enabled: true
+      },
+    },
+    stroke: {
+      curve: 'straight'
+    },
+    fill: {
+      opacity: 0.3,
+    },
+    yaxis: {
+      min: 0
+    },
+    colors: ['#DCE6EC'],
+    title: {
+      text: props.data[props.data.length - 1],
+      offsetX: 0,
+      style: {
+        fontSize: '24px',
       }
+    },
+    subtitle: {
+      text: props.series_type,
+      offsetX: 0,
+      style: {
+        fontSize: '14px',
+      }
+    }
+  };
+
+  return <div>
+    <div>
+      <Chart options={options} series={series} type={'area'} height={160}/>
+    </div>
+  </div>
+}
+
+
 export default SLChart;

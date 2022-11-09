@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SLChart from './Sparklines';
+import DonutChart from './DonutChartEnergy';
+import {styled, makeStyles} from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
 // material-ui
 import {
     Avatar,
@@ -67,20 +70,92 @@ const status = [
     }
 ];
 
+
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+}));
+
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 
 const DashboardDefault = () => {
     const [value, setValue] = useState('today');
     const [slot, setSlot] = useState('week');
-    const [chart_data, setData] = useState([]);
+    const [chart_energy, setChartEnergy] = useState([0,0,0,0]);
+    const [chart_idle, setChartIdle] = useState([0,0,0,0]);
+    const [chart_piece_count, setChartPieceCount] = useState([0,0,0,0]);
+    const[time_point, setTimePoint] = useState(1);
+    const [donut_chart_data, setDonutChartData] = useState([10,10,10]);
+
+    const update_chart = (chart_data, new_value)=>{
+        let new_data = [...chart_data, new_value];
+        new_data.shift();
+        return new_data;
+    };
+
+    const update_donut_chart = (new_donut_data)=>{
+        setDonutChartData(new_donut_data);
+    };
+
+    const generate_donut_data = (data)=>{
+        var max = data * 1.2;
+        var min = data * 0.8;
+        var array = [];
+        for(let i = 0; i < 4; i++) {
+            var new_data = Math.random() * (max - min) + min;
+            array.push(~~new_data);
+        }
+        return array;
+    };
+
+    useEffect(() => {
+        var asset= 'P01';
+        const interval = setInterval(() => {
+            fetch('/get_real_time_data?' + new URLSearchParams({asset: asset, index: time_point})).then(res => res = res.json()).then(data => {
+                var energy_avg = data[0].power_avg;
+                var idle = data[0].idle_time;
+                var piece_count = data[0].items;
+                //console.log(energy_avg, idle, piece_count);
+                setTimePoint(time_point + 1);
+                setChartEnergy(update_chart(chart_energy, energy_avg));
+                setChartPieceCount(update_chart(chart_piece_count, piece_count));
+                setChartIdle(update_chart(chart_idle, idle));
+                var donut_data = generate_donut_data(energy_avg);
+                update_donut_chart(donut_data);
+            });
+        }, 1000);
+        return ()=>{
+            clearInterval(interval);
+        }
+    }, [time_point]);
 
     return (
         <Grid container rowSpacing={4.5} columnSpacing={2.75}>
             <Grid item xs={12} sx={{ mb: -2.25 }}>
                 <Typography variant="h5">Dashboard</Typography>
             </Grid>
-            <Grid item xs={12} sx={{ mb: -2.25 }}>
-                <SLChart/>
+            <Grid item xs={4} sx={{ mb: -2.25 }}>
+                <Item>
+                    <SLChart data={chart_energy} series_type={'energy usage'}/>
+                </Item>
+            </Grid>
+            <Grid item xs={4} sx={{ mb: -2.25 }}>
+                <Item>
+                    <SLChart data={chart_idle} series_type={'idle %'}/>
+                </Item>
+            </Grid>
+            <Grid item xs={4} sx={{ mb: -2.25 }}>
+                <Item>
+                    <SLChart data={chart_piece_count} series_type={'piece count'}/>
+                </Item>
+            </Grid>
+            <Grid item xs={4} sx={{ mb: -2.25 }}>
+                <Item>
+                    <DonutChart data={donut_chart_data} machines={['machine1', 'machine2', 'machine3', 'machine4']}/>
+                </Item>
             </Grid>
 
         </Grid>
