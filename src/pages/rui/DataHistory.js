@@ -10,12 +10,17 @@ import { useState, useEffect } from 'react';
 
 function DataHistory() {
     const [currentTime, setCurrentTime] = useState(0);
-
+	
+	useEffect(() => {
+		fetch('/time').then(res => res.json()).then(data => {
+			setCurrentTime(data.time);
+		});
+	}, []);
     
     return (
         <MainCard title="Sample Card">
             <Typography variant="body2">
-                The current time is
+                The current time is {currentTime}
             </Typography>
         </MainCard>
     );

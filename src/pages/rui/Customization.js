@@ -6,6 +6,10 @@ import MainCard from 'components/MainCard';
 
 import { useState, useEffect } from 'react';
 
+import MaterialUIPickers from './MaterialUIPickers';
+
+
+
 // ==============================|| SAMPLE PAGE ||============================== //
 
 function Customization() {
@@ -18,11 +22,7 @@ function Customization() {
 	}, []);
     
     return (
-        <MainCard title="Sample Card">
-            <Typography variant="body2">
-                The current time is {currentTime}
-            </Typography>
-        </MainCard>
+        <MaterialUIPickers />
     );
 }
 
