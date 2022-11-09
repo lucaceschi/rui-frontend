@@ -84,11 +84,11 @@ const Item = styled(Paper)(({ theme }) => ({
 const DashboardDefault = () => {
     const [value, setValue] = useState('today');
     const [slot, setSlot] = useState('week');
-    const [chart_energy, setChartEnergy] = useState([0,0,0,0,0,0,0,0,0,0]);
-    const [chart_idle, setChartIdle] = useState([0,0,0,0,0,0,0,0,0,0]);
-    const [chart_piece_count, setChartPieceCount] = useState([0,0,0,0,0,0,0,0,0,0]);
+    const [chart_energy, setChartEnergy] = useState(new Array(20).fill(0));
+    const [chart_idle, setChartIdle] = useState(new Array(20).fill(0));
+    const [chart_piece_count, setChartPieceCount] = useState(new Array(20).fill(0));
     const[time_point, setTimePoint] = useState(1);
-    const [donut_chart_data, setDonutChartData] = useState([0,0,0,0,0,0,0,0,0,0]);
+    const [donut_chart_data, setDonutChartData] = useState(new Array(20).fill(0));
 
     const update_chart = (chart_data, new_value)=>{
         let new_data = [...chart_data, new_value];
