@@ -167,7 +167,7 @@ function SLChart(props){
       opacity: 0.3,
     },
     xaxis: {
-      categories: ['3 min ago', '2 min ago', '1 min ago', 'now'], //to decide
+      categories: ([...Array(10).keys()].map(n => `${n} min ago`)).reverse(), //to decide
     },
     colors: ['#DCE6EC'],
     title: {
