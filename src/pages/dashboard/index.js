@@ -143,7 +143,6 @@ const DashboardDefault = () => {
 
     useEffect(() => {
         var asset= 'P01';
-        console.log(time_point_2);
         const interval = setInterval(() => {
             fetch('/get_real_time_data?' + new URLSearchParams({asset: asset, index: time_point_2})).then(res => res = res.json()).then(data => {
                 var energy_avg = data[0].power_avg;

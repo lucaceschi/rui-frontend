@@ -8,7 +8,6 @@ import Chart from 'react-apexcharts';
 
 function DonutChart(props){
     const series = props.data;
-    console.log(series);
     const options = {
         chart: {
             height: 250

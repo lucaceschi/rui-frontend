@@ -169,7 +169,6 @@ function SLChart(props){
     xaxis: {
       categories: ([...Array(20).keys()].map(n => `${n} min ago`)).reverse(), //to decide
     },
-    colors: ['#DCE6EC'],
     title: {
       text: props.data[props.data.length - 1],
       offsetX: 0,
