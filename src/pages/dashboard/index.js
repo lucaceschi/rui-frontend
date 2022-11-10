@@ -3,6 +3,7 @@ import SLChart from './Sparklines';
 import DonutChart from './DonutChartEnergy';
 import {styled, makeStyles} from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
+
 // material-ui
 import {
     Avatar,
@@ -87,7 +88,14 @@ const DashboardDefault = () => {
     const [chart_energy, setChartEnergy] = useState(new Array(20).fill(0));
     const [chart_idle, setChartIdle] = useState(new Array(20).fill(0));
     const [chart_piece_count, setChartPieceCount] = useState(new Array(20).fill(0));
+
+    const [chart_energy_2, setChartEnergy2] = useState(new Array(20).fill(0));
+    const [chart_idle_2, setChartIdle2] = useState(new Array(20).fill(0));
+    const [chart_piece_count_2, setChartPieceCount2] = useState(new Array(20).fill(0));
+
     const[time_point, setTimePoint] = useState(1);
+    const[time_point_2, setTimePoint2] = useState(100);
+
     const [donut_chart_data, setDonutChartData] = useState(new Array(20).fill(0));
 
     const update_chart = (chart_data, new_value)=>{
@@ -119,9 +127,11 @@ const DashboardDefault = () => {
                 var idle = 100 - data[0].idle_time;
                 var piece_count = data[0].items;
                 setTimePoint(time_point + 1);
+
                 setChartEnergy(update_chart(chart_energy, energy_avg));
                 setChartPieceCount(update_chart(chart_piece_count, piece_count));
                 setChartIdle(update_chart(chart_idle, idle));
+
                 var donut_data = generate_donut_data(energy_avg);
                 update_donut_chart(donut_data);
             });
@@ -131,27 +141,72 @@ const DashboardDefault = () => {
         }
     }, [time_point]);
 
+    useEffect(() => {
+        var asset= 'P01';
+        console.log(time_point_2);
+        const interval = setInterval(() => {
+            fetch('/get_real_time_data?' + new URLSearchParams({asset: asset, index: time_point_2})).then(res => res = res.json()).then(data => {
+                var energy_avg = data[0].power_avg;
+                var idle = 100 - data[0].idle_time;
+                var piece_count = data[0].items;
+                setTimePoint2(time_point_2 + 1);
+
+                setChartEnergy2(update_chart(chart_energy_2, energy_avg));
+                setChartPieceCount2(update_chart(chart_piece_count_2, piece_count));
+                setChartIdle2(update_chart(chart_idle_2, idle));
+
+                var donut_data = generate_donut_data(energy_avg);
+                update_donut_chart(donut_data);
+            });
+        }, 1000);
+        return ()=>{
+            clearInterval(interval);
+        }
+    }, [time_point_2]);
+
     return (
-        <Grid container rowSpacing={4.5} columnSpacing={2.75}>
-            <Grid item xs={12} sx={{ mb: -2.25 }}>
-                <Typography variant="h5">Dashboard</Typography>
+        <Grid container rowSpacing={3.5} columnSpacing={2.75}>
+            <Grid item xs={12}>
+                <Typography variant="h2">Dashboard</Typography>
             </Grid>
-            <Grid item xs={4} sx={{ mb: -2.25 }}>
+            <Grid item xs={12}>
+              <Typography variant="h5">Machine 1</Typography>
+            </Grid>
+            <Grid item xs={4}>
                 <Item>
                     <SLChart data={chart_energy} series_type={'Energy Usage'}/>
                 </Item>
             </Grid>
-            <Grid item xs={4} sx={{ mb: -2.25 }}>
+            <Grid item xs={4}>
                 <Item>
                     <SLChart data={chart_idle} series_type={'Activity %'}/>
                 </Item>
             </Grid>
-            <Grid item xs={4} sx={{ mb: -2.25 }}>
+            <Grid item xs={4}>
                 <Item>
                     <SLChart data={chart_piece_count} series_type={'Piece Count'}/>
                 </Item>
             </Grid>
-            <Grid item xs={4} sx={{ mb: -2.25 }}>
+            <Grid item xs={12}>
+              <Typography variant="h5">Machine 2</Typography>
+            </Grid>
+            <Grid item xs={4}>
+                <Item>
+                    <SLChart data={chart_energy_2} series_type={'Energy Usage'}/>
+                </Item>
+            </Grid>
+            <Grid item xs={4}>
+                <Item>
+                    <SLChart data={chart_idle_2} series_type={'Activity %'}/>
+                </Item>
+            </Grid>
+            <Grid item xs={4}>
+                <Item>
+                    <SLChart data={chart_piece_count_2} series_type={'Piece Count'}/>
+                </Item>
+            </Grid>
+
+            <Grid item xs={4}>
                 <Item>
                     <DonutChart data={donut_chart_data} machines={['machine1', 'machine2', 'machine3', 'machine4']}/>
                 </Item>
