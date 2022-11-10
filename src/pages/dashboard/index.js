@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext} from 'react';
 import SLChart from './Sparklines';
 import DonutChart from './DonutChartEnergy';
 import {styled, makeStyles} from '@mui/material/styles';
@@ -31,7 +31,7 @@ import MainCard from 'components/MainCard';
 import AnalyticEcommerce from 'components/cards/statistics/AnalyticEcommerce';
 
 // assets
-import { GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
+import { GiftOutlined, MessageOutlined, SettingOutlined} from '@ant-design/icons';
 import avatar1 from 'assets/images/users/avatar-1.png';
 import avatar2 from 'assets/images/users/avatar-2.png';
 import avatar3 from 'assets/images/users/avatar-3.png';
@@ -82,12 +82,10 @@ const Item = styled(Paper)(({ theme }) => ({
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 
 const DashboardDefault = () => {
-    const [value, setValue] = useState('today');
-    const [slot, setSlot] = useState('week');
     const [chart_energy, setChartEnergy] = useState([0,0,0,0]);
     const [chart_idle, setChartIdle] = useState([0,0,0,0]);
     const [chart_piece_count, setChartPieceCount] = useState([0,0,0,0]);
-    const[time_point, setTimePoint] = useState(1);
+    const [time_point, setTimePoint] = useState(1);
     const [donut_chart_data, setDonutChartData] = useState([10,10,10]);
 
     const update_chart = (chart_data, new_value)=>{
@@ -139,22 +137,22 @@ const DashboardDefault = () => {
             </Grid>
             <Grid item xs={4} sx={{ mb: -2.25 }}>
                 <Item>
-                    <SLChart data={chart_energy} series_type={'energy usage'}/>
+                    <SLChart data={chart_energy} series_type={'energy usage'} id={"energy_usage_machine1"}/>
                 </Item>
             </Grid>
             <Grid item xs={4} sx={{ mb: -2.25 }}>
                 <Item>
-                    <SLChart data={chart_idle} series_type={'idle %'}/>
+                    <SLChart data={chart_idle} series_type={'idle %'} id={"idle_machine1"}/>
                 </Item>
             </Grid>
             <Grid item xs={4} sx={{ mb: -2.25 }}>
-                <Item>
-                    <SLChart data={chart_piece_count} series_type={'piece count'}/>
+                <Item className={'rep'}>
+                    <SLChart data={chart_piece_count} series_type={'piece count'} id={"piece_count_machine1"}/>
                 </Item>
             </Grid>
             <Grid item xs={4} sx={{ mb: -2.25 }}>
-                <Item>
-                    <DonutChart data={donut_chart_data} machines={['machine1', 'machine2', 'machine3', 'machine4']}/>
+                <Item className={'rep'}>
+                    <DonutChart series={donut_chart_data} machines={['machine1', 'machine2', 'machine3', 'machine4']} id={"energy_consumption"}/>
                 </Item>
             </Grid>
 
