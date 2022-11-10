@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Stack, Chip } from '@mui/material';
+import { Stack } from '@mui/material';
+//import Chip from '@mui/material';
 
 // project import
 import DrawerHeaderStyled from './DrawerHeaderStyled';

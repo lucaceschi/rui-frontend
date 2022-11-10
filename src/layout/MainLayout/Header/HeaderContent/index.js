@@ -1,9 +1,10 @@
 // material-ui
-import { Box, IconButton, Link, useMediaQuery } from '@mui/material';
-import { GithubOutlined } from '@ant-design/icons';
+import { Box, useMediaQuery } from '@mui/material';
+//import { IconButton, Link } from '@mui/material';
+//import { GithubOutlined } from '@ant-design/icons';
 
 // project import
-import Search from './Search';
+import HeadsUp from './HeadsUp';
 import Profile from './Profile';
 import Notification from './Notification';
 import MobileSection from './MobileSection';
@@ -15,7 +16,7 @@ const HeaderContent = () => {
 
     return (
         <>
-            {!matchesXs && <Search />}
+            {!matchesXs && <HeadsUp />}
             {matchesXs && <Box sx={{ width: '100%', ml: 1 }} />}
 
             {/*
