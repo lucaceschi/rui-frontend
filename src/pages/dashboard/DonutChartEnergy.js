@@ -32,9 +32,6 @@ function DonutChart(props){
                 }
             }
         },
-        title: {
-            text: 'total energy consumption'
-        }
     }
 
     return <div>

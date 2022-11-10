@@ -173,12 +173,12 @@ const DashboardDefault = () => {
             </Grid>
             <Grid item xs={4}>
                 <Item>
-                    <SLChart data={chart_energy} series_type={'Energy Usage'}/>
+                    <SLChart data={chart_energy} series_type={'Energy Usage (kWh)'}/>
                 </Item>
             </Grid>
             <Grid item xs={4}>
                 <Item>
-                    <SLChart data={chart_idle} series_type={'Activity %'}/>
+                    <SLChart data={chart_idle} series_type={'Activity (%)'}/>
                 </Item>
             </Grid>
             <Grid item xs={4}>
@@ -191,12 +191,12 @@ const DashboardDefault = () => {
             </Grid>
             <Grid item xs={4}>
                 <Item>
-                    <SLChart data={chart_energy_2} series_type={'Energy Usage'}/>
+                    <SLChart data={chart_energy_2} series_type={'Energy Usage (kWh)'}/>
                 </Item>
             </Grid>
             <Grid item xs={4}>
                 <Item>
-                    <SLChart data={chart_idle_2} series_type={'Activity %'}/>
+                    <SLChart data={chart_idle_2} series_type={'Activity (%)'}/>
                 </Item>
             </Grid>
             <Grid item xs={4}>
@@ -204,13 +204,19 @@ const DashboardDefault = () => {
                     <SLChart data={chart_piece_count_2} series_type={'Piece Count'}/>
                 </Item>
             </Grid>
-
             <Grid item xs={4}>
+
                 <Item>
+                <Typography variant="h5">Total Energy Consumption</Typography>
                     <DonutChart data={donut_chart_data} machines={['machine1', 'machine2', 'machine3', 'machine4']}/>
                 </Item>
             </Grid>
-
+            <Grid item xs={4}>
+                <AnalyticEcommerce title="Total Products Produced" type="made" count="40,236" percentage={59.3} extra="3,000" />
+            </Grid>
+            <Grid item xs={4}>
+                <AnalyticEcommerce title="Total Energy Consumed (kWh)" type="saved" count="2,549" isLoss color="warning" percentage={18} extra="300" />
+            </Grid>
         </Grid>
     );
 };
