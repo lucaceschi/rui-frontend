@@ -143,7 +143,7 @@ const Profile = () => {
                                                         <Stack>
                                                             <Typography variant="h6">Mario Rui</Typography>
                                                             <Typography variant="body2" color="textSecondary">
-                                                                UI/UX Designer
+                                                                MAESTRO
                                                             </Typography>
                                                         </Stack>
                                                     </Stack>
