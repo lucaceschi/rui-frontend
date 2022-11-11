@@ -2,16 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84d11ce4-7997-48dc-8609-bda35279c5a5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layout/MainLayout/Header/HeaderContent/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/MainLayout/Header/HeaderContent/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/DonutChartEnergy.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/DonutChartEnergy.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/dashboard/Sparklines.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/Sparklines.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/dashboard/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/rui/DataHistory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/rui/DataHistory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/rui/RealTimeMonitoring.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/rui/RealTimeMonitoring.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -28,13 +47,18 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/depa/Documents/smartapp/Docker_Flask_React_integration/frontend/code&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/depa/Documents/smartapp/Docker_Flask_React_integration/frontend/code/src/utils&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/utils" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -45,7 +69,9 @@
       <updated>1667941455302</updated>
       <workItem from="1667941458401" duration="34000" />
       <workItem from="1667941493143" duration="15815000" />
-      <workItem from="1667996102500" duration="775000" />
+      <workItem from="1667996102500" duration="2050000" />
+      <workItem from="1668005432948" duration="7712000" />
+      <workItem from="1668019381534" duration="25209000" />
     </task>
     <servers />
   </component>
@@ -57,7 +83,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="pdf_report" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>

@@ -1,10 +1,9 @@
 // material-ui
-import { Box, useMediaQuery } from '@mui/material';
-//import { IconButton, Link } from '@mui/material';
-//import { GithubOutlined } from '@ant-design/icons';
-
+import { Box, Button, IconButton, Link, useMediaQuery } from '@mui/material';
+import { GithubOutlined, FilePdfFilled} from '@ant-design/icons';
+import {exportToPDF} from "../../../../utils/utilsPdf";
 // project import
-import HeadsUp from './HeadsUp';
+import Search from './Search';
 import Profile from './Profile';
 import Notification from './Notification';
 import MobileSection from './MobileSection';
@@ -16,7 +15,7 @@ const HeaderContent = () => {
 
     return (
         <>
-            {!matchesXs && <HeadsUp />}
+            {!matchesXs && <Search />}
             {matchesXs && <Box sx={{ width: '100%', ml: 1 }} />}
 
             {/*
@@ -31,7 +30,9 @@ const HeaderContent = () => {
                 <GithubOutlined />
             </IconButton>
             >*/}
-
+            <IconButton onClick={exportToPDF}>
+                <FilePdfFilled/>
+            </IconButton>
             <Notification />
             {!matchesXs && <Profile />}
             {matchesXs && <MobileSection />}
