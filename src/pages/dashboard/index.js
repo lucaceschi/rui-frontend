@@ -209,10 +209,10 @@ const DashboardDefault = () => {
                 </Item>
             </Grid>
             <Grid item xs={4}>
-                <AnalyticEcommerce title="Total Products Produced" type="made" count="40,236" percentage={59.3} extra="3,000" />
+                <AnalyticEcommerce id = {"total_products"} title="Total Products Produced" type="made" count="40,236" percentage={59.3} extra="3,000" />
             </Grid>
             <Grid item xs={4}>
-                <AnalyticEcommerce title="Total Energy Consumed (kWh)" type="saved" count="2,549" isLoss color="warning" percentage={18} extra="300" />
+                <AnalyticEcommerce id={"total_energy"} title="Total Energy Consumed (kWh)" type="saved" count="2,549" isLoss color="warning" percentage={18} extra="300" />
             </Grid>
         </Grid>
     );
