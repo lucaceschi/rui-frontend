@@ -166,49 +166,46 @@ const DashboardDefault = () => {
     return (
         <Grid container rowSpacing={3.5} columnSpacing={2.75}>
             <Grid item xs={12}>
-                <Typography variant="h2">Dashboard</Typography>
-            </Grid>
-            <Grid item xs={12}>
               <Typography variant="h5">Machine 1</Typography>
             </Grid>
             <Grid item xs={4}>
-                <Item>
-                    <SLChart data={chart_energy} series_type={'Energy Usage (kWh)'}/>
+                <Item className = {'rep'}>
+                    <SLChart data={chart_energy} series_type={'Energy Usage (kWh)'} id={"energy_usage_machine1"}/>
                 </Item>
             </Grid>
             <Grid item xs={4}>
-                <Item>
-                    <SLChart data={chart_idle} series_type={'Activity (%)'}/>
+                <Item className={'rep'}>
+                    <SLChart data={chart_idle} series_type={'Activity (%)'} id={"activity_machine1"}/>
                 </Item>
             </Grid>
             <Grid item xs={4}>
-                <Item>
-                    <SLChart data={chart_piece_count} series_type={'Piece Count'}/>
+                <Item className={'rep'}>
+                    <SLChart data={chart_piece_count} series_type={'Piece Count'} id={"piece_count_machine1"}/>
                 </Item>
             </Grid>
             <Grid item xs={12}>
               <Typography variant="h5">Machine 2</Typography>
             </Grid>
             <Grid item xs={4}>
-                <Item>
-                    <SLChart data={chart_energy_2} series_type={'Energy Usage (kWh)'}/>
+                <Item className={'rep'}>
+                    <SLChart data={chart_energy_2} series_type={'Energy Usage (kWh)'} id={"energy_usage_machine2"}/>
                 </Item>
             </Grid>
             <Grid item xs={4}>
-                <Item>
-                    <SLChart data={chart_idle_2} series_type={'Activity (%)'}/>
+                <Item className={'rep'}>
+                    <SLChart data={chart_idle_2} series_type={'Activity (%)'} id={"activity_machine2"}/>
                 </Item>
             </Grid>
             <Grid item xs={4}>
-                <Item>
-                    <SLChart data={chart_piece_count_2} series_type={'Piece Count'}/>
+                <Item className={'rep'}>
+                    <SLChart data={chart_piece_count_2} series_type={'Piece Count'} id={"piece_count_machine2"}/>
                 </Item>
             </Grid>
             <Grid item xs={4}>
 
-                <Item>
+                <Item className={"rep"}>
                 <Typography variant="h5">Total Energy Consumption</Typography>
-                    <DonutChart data={donut_chart_data} machines={['machine1', 'machine2', 'machine3', 'machine4']}/>
+                    <DonutChart series={donut_chart_data} machines={['machine1', 'machine2', 'machine3', 'machine4']} id={"energy_consumption"}/>
                 </Item>
             </Grid>
             <Grid item xs={4}>
