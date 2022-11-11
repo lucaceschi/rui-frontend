@@ -25,7 +25,7 @@ import MainCard from 'components/MainCard';
 import Transitions from 'components/@extended/Transitions';
 
 // assets
-import { BellOutlined, CloseOutlined, GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
+import { StopOutlined, WarningOutlined, CheckOutlined, BellOutlined, CloseOutlined, GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
 
 // sx styles
 const avatarSX = {
@@ -71,14 +71,16 @@ const Notification = () => {
             <IconButton
                 disableRipple
                 color="secondary"
-                sx={{ color: 'text.primary', bgcolor: open ? iconBackColorOpen : iconBackColor }}
+                sx={{ color: 'text.primary', bgcolor: open ? iconBackColorOpen : 'transparent',
+                    '&:hover': { bgcolor: 'secondary.lighter' }
+                }}
                 aria-label="open profile"
                 ref={anchorRef}
                 aria-controls={open ? 'profile-grow' : undefined}
-                aria-haspopup="true"
+                aria-haspopup="false"
                 onClick={handleToggle}
             >
-                <Badge badgeContent={4} color="primary">
+                <Badge badgeContent={3} color="primary">
                     <BellOutlined />
                 </Badge>
             </IconButton>
@@ -140,24 +142,24 @@ const Notification = () => {
                                             <ListItemAvatar>
                                                 <Avatar
                                                     sx={{
-                                                        color: 'success.main',
-                                                        bgcolor: 'success.lighter'
+                                                        color: 'error.main',
+                                                        bgcolor: 'error.lighter'
                                                     }}
                                                 >
-                                                    <GiftOutlined />
+                                                    <StopOutlined />
                                                 </Avatar>
                                             </ListItemAvatar>
                                             <ListItemText
                                                 primary={
                                                     <Typography variant="h6">
-                                                        It&apos;s{' '}
+
                                                         <Typography component="span" variant="subtitle1">
-                                                            Cristina danny&apos;s
+                                                            ERROR!
                                                         </Typography>{' '}
-                                                        birthday today.
+                                                        Machine 1 broke down.
                                                     </Typography>
                                                 }
-                                                secondary="2 min ago"
+                                                secondary="1 hour ago"
                                             />
                                             <ListItemSecondaryAction>
                                                 <Typography variant="caption" noWrap>
@@ -170,20 +172,20 @@ const Notification = () => {
                                             <ListItemAvatar>
                                                 <Avatar
                                                     sx={{
-                                                        color: 'primary.main',
-                                                        bgcolor: 'primary.lighter'
+                                                        color: 'success.main',
+                                                        bgcolor: 'success.lighter'
                                                     }}
                                                 >
-                                                    <MessageOutlined />
+                                                    <CheckOutlined />
                                                 </Avatar>
                                             </ListItemAvatar>
                                             <ListItemText
                                                 primary={
                                                     <Typography variant="h6">
-                                                        <Typography component="span" variant="subtitle1">
-                                                            Aida Burg
-                                                        </Typography>{' '}
-                                                        commented your post.
+                                                            Production increased by &nbsp;
+                                                            <Typography component="span" variant="subtitle1">
+                                                             20%
+                                                            </Typography>
                                                     </Typography>
                                                 }
                                                 secondary="5 August"
@@ -199,59 +201,27 @@ const Notification = () => {
                                             <ListItemAvatar>
                                                 <Avatar
                                                     sx={{
-                                                        color: 'error.main',
-                                                        bgcolor: 'error.lighter'
+                                                        color: 'warning.main',
+                                                        bgcolor: 'warning.lighter'
                                                     }}
                                                 >
-                                                    <SettingOutlined />
+                                                    <WarningOutlined />
                                                 </Avatar>
                                             </ListItemAvatar>
                                             <ListItemText
                                                 primary={
                                                     <Typography variant="h6">
-                                                        Your Profile is Complete &nbsp;
+                                                        Machine 1 is slowing down by &nbsp;
                                                         <Typography component="span" variant="subtitle1">
-                                                            60%
+                                                            8%
                                                         </Typography>{' '}
                                                     </Typography>
                                                 }
-                                                secondary="7 hours ago"
+                                                secondary="10 hours ago"
                                             />
                                             <ListItemSecondaryAction>
                                                 <Typography variant="caption" noWrap>
                                                     2:45 PM
-                                                </Typography>
-                                            </ListItemSecondaryAction>
-                                        </ListItemButton>
-                                        <Divider />
-                                        <ListItemButton>
-                                            <ListItemAvatar>
-                                                <Avatar
-                                                    sx={{
-                                                        color: 'primary.main',
-                                                        bgcolor: 'primary.lighter'
-                                                    }}
-                                                >
-                                                    C
-                                                </Avatar>
-                                            </ListItemAvatar>
-                                            <ListItemText
-                                                primary={
-                                                    <Typography variant="h6">
-                                                        <Typography component="span" variant="subtitle1">
-                                                            Cristina Danny
-                                                        </Typography>{' '}
-                                                        invited to join{' '}
-                                                        <Typography component="span" variant="subtitle1">
-                                                            Meeting.
-                                                        </Typography>
-                                                    </Typography>
-                                                }
-                                                secondary="Daily scrum meeting time"
-                                            />
-                                            <ListItemSecondaryAction>
-                                                <Typography variant="caption" noWrap>
-                                                    9:10 PM
                                                 </Typography>
                                             </ListItemSecondaryAction>
                                         </ListItemButton>
