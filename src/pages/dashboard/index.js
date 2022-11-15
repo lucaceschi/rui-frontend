@@ -96,7 +96,7 @@ const DashboardDefault = () => {
     const[time_point, setTimePoint] = useState(1);
     const[time_point_2, setTimePoint2] = useState(100);
 
-    const [donut_chart_data, setDonutChartData] = useState(new Array(20).fill(0));
+    const [donut_chart_data, setDonutChartData] = useState(new Array(4).fill(0));
 
     const update_chart = (chart_data, new_value)=>{
         let new_data = [...chart_data, new_value];
@@ -135,15 +135,6 @@ const DashboardDefault = () => {
                 var donut_data = generate_donut_data(energy_avg);
                 update_donut_chart(donut_data);
             });
-        }, 1000);
-        return ()=>{
-            clearInterval(interval);
-        }
-    }, [time_point]);
-
-    useEffect(() => {
-        var asset= 'P01';
-        const interval = setInterval(() => {
             fetch('/get_real_time_data?' + new URLSearchParams({asset: asset, index: time_point_2})).then(res => res = res.json()).then(data => {
                 var energy_avg = data[0].power_avg;
                 var idle = 100 - data[0].idle_time;
@@ -161,7 +152,7 @@ const DashboardDefault = () => {
         return ()=>{
             clearInterval(interval);
         }
-    }, [time_point_2]);
+    }, [time_point, time_point_2]);
 
     return (
         <Grid container rowSpacing={3.5} columnSpacing={2.75}>
