@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84d11ce4-7997-48dc-8609-bda35279c5a5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layout/MainLayout/Header/HeaderContent/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/MainLayout/Header/HeaderContent/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/DonutChartEnergy.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/DonutChartEnergy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/Sparklines.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/Sparklines.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/rui/DataHistory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/rui/DataHistory.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/rui/RealTimeMonitoring.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/rui/RealTimeMonitoring.js" afterDir="false" />
     </list>
@@ -47,7 +40,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/depa/Documents/smartapp/Docker_Flask_React_integration/frontend/code/src/utils&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/depa/Documents/smartapp_locale/Docker_Flask_React_integration/frontend/code&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
@@ -72,6 +65,17 @@
       <workItem from="1667996102500" duration="2050000" />
       <workItem from="1668005432948" duration="7712000" />
       <workItem from="1668019381534" duration="25209000" />
+      <workItem from="1668602561992" duration="11000" />
+      <workItem from="1668605925911" duration="7880000" />
+      <workItem from="1668623080259" duration="2752000" />
+      <workItem from="1668696726018" duration="8405000" />
+      <workItem from="1668788377102" duration="44853000" />
+      <workItem from="1669109986701" duration="3990000" />
+      <workItem from="1669120302375" duration="1217000" />
+      <workItem from="1669123231776" duration="1534000" />
+      <workItem from="1669190934353" duration="9723000" />
+      <workItem from="1669207570695" duration="393000" />
+      <workItem from="1669214436438" duration="1003000" />
     </task>
     <servers />
   </component>
