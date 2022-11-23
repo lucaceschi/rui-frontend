@@ -1,10 +1,11 @@
 // assets
-import { HistoryOutlined, StockOutlined } from '@ant-design/icons';
+import { HistoryOutlined, StockOutlined, CalculatorOutlined } from '@ant-design/icons';
 
 // icons
 const icons = {
     HistoryOutlined,
-    StockOutlined
+    StockOutlined,
+    CalculatorOutlined
 };
 
 const factory = {
@@ -26,6 +27,14 @@ const factory = {
             type: 'item',
             url: '/realtime',
             icon: icons.StockOutlined,
+            breadcrumbs: false
+        },
+        {
+            id: 'calculator',
+            title: 'Energy calculator',
+            type: 'item',
+            url: '/calculator',
+            icon: icons.CalculatorOutlined,
             breadcrumbs: false
         }
     ]
