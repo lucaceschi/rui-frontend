@@ -74,12 +74,6 @@ const headCells = [
         align: 'right',
         disablePadding: false,
         label: 'Machine Type'
-    },
-    {
-        id: 'partProgram',
-        align: 'right',
-        disablePadding: true,
-        label: 'Part Program'
     }
 ];
 
@@ -144,7 +138,7 @@ export default function OrderTable(rowsData) {
                     <OrderTableHead order={order} orderBy={orderBy} />
                     <TableBody>
                         {stableSort(rowsData.rows, getComparator(order, orderBy)).map((row, index) => {
-                            const isItemSelected = isSelected(row.idMachine);
+                            const isItemSelected = isSelected(row.id);
                             const labelId = `enhanced-table-checkbox-${index}`;
 
                             return (
@@ -154,18 +148,16 @@ export default function OrderTable(rowsData) {
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     aria-checked={isItemSelected}
                                     tabIndex={-1}
-                                    key={row.idMachine}
+                                    key={row.id}
                                     selected={isItemSelected}
                                 >
                                     <TableCell component="th" id={labelId} scope="row" align="left">
                                         <Link color="secondary" component={RouterLink} to="">
-                                            {row.idMachine}
+                                            {row.id}
                                         </Link>
                                     </TableCell>
-                                    <TableCell align="left">{row.name}</TableCell>
-                                    <TableCell align="right">{row.type}
-                                    </TableCell>
-                                    <TableCell align="right">{row.partProgram}
+                                    <TableCell align="left">{row.asset}</TableCell>
+                                    <TableCell align="right">{row.machine_type}
                                     </TableCell>
                                 </TableRow>
                             );

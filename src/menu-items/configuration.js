@@ -15,21 +15,22 @@ const configuration = {
     type: 'group',
     children: [
         {
-            id: 'settings',
-            title: 'Settings',
-            type: 'item',
-            url: '/settings',
-            icon: icons.SettingOutlined,
-            breadcrumbs: true
-        },
-        {
             id: 'customization',
             title: 'Customization',
             type: 'item',
             url: '/customization',
             icon: icons.FormatPainterOutlined,
             breadcrumbs: true
+        },
+        {
+            id: 'settings',
+            title: 'Settings',
+            type: 'item',
+            url: '/settings',
+            icon: icons.SettingOutlined,
+            breadcrumbs: true
         }
+
     ]
 };
 

@@ -38,6 +38,7 @@ import avatar2 from 'assets/images/users/avatar-2.png';
 import avatar3 from 'assets/images/users/avatar-3.png';
 import avatar4 from 'assets/images/users/avatar-4.png';
 
+
 // avatar style
 const avatarSX = {
     width: 36,
@@ -96,7 +97,9 @@ const DashboardDefault = () => {
     const[time_point, setTimePoint] = useState(1);
     const[time_point_2, setTimePoint2] = useState(100);
 
-    const [donut_chart_data, setDonutChartData] = useState(new Array(4).fill(0));
+    const [donut_chart_data, setDonutChartData] = useState(new Array(2).fill(0));
+
+    const [flag, setFlag] = useState(false);
 
     const update_chart = (chart_data, new_value)=>{
         let new_data = [...chart_data, new_value];
@@ -112,7 +115,7 @@ const DashboardDefault = () => {
         var max = data * 1.2;
         var min = data * 0.8;
         var array = [];
-        for(let i = 0; i < 4; i++) {
+        for(let i = 0; i < 2; i++) {
             var new_data = Math.random() * (max - min) + min;
             array.push(~~new_data);
         }
@@ -122,10 +125,16 @@ const DashboardDefault = () => {
     useEffect(() => {
         var asset= 'P01';
         const interval = setInterval(() => {
+            fetch('/get_machines').then(res => res = res.json()).then(data => {
+              if(data.length > 1)
+                setFlag(true);
+
+            });
             fetch('/get_real_time_data?' + new URLSearchParams({asset: asset, index: time_point})).then(res => res = res.json()).then(data => {
                 var energy_avg = data[0].power_avg;
                 var idle = 100 - data[0].idle_time;
                 var piece_count = data[0].items;
+                console.log(data);
                 setTimePoint(time_point + 1);
 
                 setChartEnergy(update_chart(chart_energy, energy_avg));
@@ -156,55 +165,68 @@ const DashboardDefault = () => {
 
     return (
         <Grid container rowSpacing={3.5} columnSpacing={2.75}>
-            <Grid item xs={12}>
-              <Typography variant="h5">Machine 1</Typography>
-            </Grid>
-            <Grid item xs={4}>
-                <Item className = {'rep'}>
-                    <SLChart data={chart_energy} series_type={'Energy Usage (kWh)'} id={"energy_usage_machine1"}/>
-                </Item>
-            </Grid>
-            <Grid item xs={4}>
-                <Item className={'rep'}>
-                    <SLChart data={chart_idle} series_type={'Activity (%)'} id={"activity_machine1"}/>
-                </Item>
-            </Grid>
-            <Grid item xs={4}>
-                <Item className={'rep'}>
-                    <SLChart data={chart_piece_count} series_type={'Piece Count'} id={"piece_count_machine1"}/>
-                </Item>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="h5">Machine 2</Typography>
-            </Grid>
-            <Grid item xs={4}>
-                <Item className={'rep'}>
-                    <SLChart data={chart_energy_2} series_type={'Energy Usage (kWh)'} id={"energy_usage_machine2"}/>
-                </Item>
-            </Grid>
-            <Grid item xs={4}>
-                <Item className={'rep'}>
-                    <SLChart data={chart_idle_2} series_type={'Activity (%)'} id={"activity_machine2"}/>
-                </Item>
-            </Grid>
-            <Grid item xs={4}>
-                <Item className={'rep'}>
-                    <SLChart data={chart_piece_count_2} series_type={'Piece Count'} id={"piece_count_machine2"}/>
-                </Item>
-            </Grid>
-            <Grid item xs={4}>
 
-                <Item className={"rep"}>
-                <Typography variant="h5">Total Energy Consumption</Typography>
-                    <DonutChart series={donut_chart_data} machines={['machine1', 'machine2', 'machine3', 'machine4']} id={"energy_consumption"}/>
-                </Item>
-            </Grid>
-            <Grid item xs={4}>
-                <AnalyticEcommerce id = {"total_products"} title="Total Products Produced" type="made" count="40,236" percentage={59.3} extra="3,000" />
-            </Grid>
-            <Grid item xs={4}>
-                <AnalyticEcommerce id={"total_energy"} title="Total Energy Consumed (kWh)" type="saved" count="2,549" isLoss color="warning" percentage={18} extra="300" />
-            </Grid>
+          <Grid item xs={12}>
+            <Typography variant="h5">Machine 1</Typography>
+          </Grid>
+
+          <Grid item xs={4}>
+              <Item className = {'rep'}>
+                  <SLChart data={chart_energy} series_type={'Energy Usage (kWh)'} id={"energy_usage_machine1"}/>
+              </Item>
+          </Grid>
+
+          <Grid item xs={4}>
+              <Item className={'rep'}>
+                  <SLChart data={chart_idle} series_type={'Activity (%)'} id={"activity_machine1"}/>
+              </Item>
+          </Grid>
+
+          <Grid item xs={4}>
+              <Item className={'rep'}>
+                  <SLChart data={chart_piece_count} series_type={'Piece Count'} id={"piece_count_machine1"}/>
+              </Item>
+          </Grid>
+
+
+          {flag && <Grid item xs={12}>
+            <Typography variant="h5">Machine 2</Typography>
+          </Grid>}
+
+          {flag && <Grid item xs={4}>
+              <Item className={'rep'}>
+                  <SLChart data={chart_energy_2} series_type={'Energy Usage (kWh)'} id={"energy_usage_machine2"}/>
+              </Item>
+          </Grid>}
+
+          {flag && <Grid item xs={4}>
+              <Item className={'rep'}>
+                  <SLChart data={chart_idle_2} series_type={'Activity (%)'} id={"activity_machine2"}/>
+              </Item>
+          </Grid>}
+
+          {flag && <Grid item xs={4}>
+              <Item className={'rep'}>
+                  <SLChart data={chart_piece_count_2} series_type={'Piece Count'} id={"piece_count_machine2"}/>
+              </Item>
+          </Grid>}
+
+
+          {flag && <Grid item xs={4}>
+            <Item className={"rep"}>
+            <Typography variant="h5">Total Energy Consumption</Typography>
+                <DonutChart series={donut_chart_data} machines={['machine1', 'machine2']} id={"energy_consumption"}/>
+            </Item>
+          </Grid>}
+
+          <Grid item xs={4}>
+              <AnalyticEcommerce id = {"total_products"} title="Total Products Produced" type="made" count="40,236" percentage={59.3} extra="3,000" />
+          </Grid>
+
+          <Grid item xs={4}>
+              <AnalyticEcommerce id={"total_energy"} title="Total Energy Consumed (kWh)" type="saved" count="2,549" isLoss color="warning" percentage={18} extra="300" />
+          </Grid>
+
         </Grid>
     );
 };
