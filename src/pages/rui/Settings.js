@@ -1,8 +1,15 @@
 // material-ui
-import { Typography } from '@mui/material';
+import { Typography,
+         FormControl,
+         InputLabel,
+         Input,
+         FormHelperText
+        }
+from '@mui/material';
 
 // project import
 import MainCard from 'components/MainCard';
+import OrdersTable from 'pages/dashboard/OrdersTable';
 
 import { useState, useEffect } from 'react';
 
@@ -10,19 +17,18 @@ import { useState, useEffect } from 'react';
 
 function Settings() {
     const [currentTime, setCurrentTime] = useState(0);
-	
+
+    const [rows_data, setRowsData] = useState(new Array(0));
+
+
 	useEffect(() => {
-		fetch('/time').then(res => res.json()).then(data => {
-			setCurrentTime(data.time);
-		});
 	}, []);
-    
+
     return (
-        <MainCard title="Sample Card">
-            <Typography variant="body2">
-                The current time is {currentTime}
-            </Typography>
-        </MainCard>
+      <MainCard sx={{ mt: 2 }} content={false}>
+        Settings
+      </MainCard>
+
     );
 }
 
