@@ -1,5 +1,5 @@
 // material-ui
-import { Button, Fade, Grid, Menu, MenuItem, Typography } from '@mui/material';
+import { Button, Fade, FormControl, Grid, InputLabel, Menu, MenuItem, Select, Typography } from '@mui/material';
 import {styled, makeStyles} from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 // project import
@@ -18,6 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
 function RealTimeMonitoring() {
     const [anchor_el, setAnchorEl] = useState(null);
     const [machine, setMachine] = useState('machine 1');
+    const [time_range, setTimeRange] = useState(4);
     const open = Boolean(anchor_el);
 
     const handleClick = (e) => {
@@ -33,9 +34,13 @@ function RealTimeMonitoring() {
         setMachine(e.currentTarget.firstChild.data);
     };
 
+    const handleChange = (e) => {
+        setTimeRange(e.target.value);
+    };
+
     return (
         <Grid container rowSpacing={3.5} columnSpacing={2.75}>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
                 <div>
                     <Button
                         id="fade-button"
@@ -62,9 +67,28 @@ function RealTimeMonitoring() {
                     </Menu>
                 </div>
             </Grid>
+            <Grid item xs={6}>
+                <FormControl>
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Select data range</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={time_range}
+                            label="time_interval"
+                            onChange={handleChange}
+                        >
+                            <MenuItem value={1}>One</MenuItem>
+                            <MenuItem value={2}>Two</MenuItem>
+                            <MenuItem value={4}>Four</MenuItem>
+                            <MenuItem value={6}>Six</MenuItem>
+                        </Select>
+                    </FormControl>
+                </FormControl>
+            </Grid>
             <Grid item xs={12}>
                 <Item>
-                    <MachineRealTime machine={machine}/>
+                    <MachineRealTime machine={machine} time_range={time_range}/>
                 </Item>
             </Grid>
         </Grid>

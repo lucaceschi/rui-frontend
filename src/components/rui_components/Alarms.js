@@ -30,7 +30,7 @@ function Alarms(props) {
         tooltip: {
             x: {
                 show: true,
-                format: 'H m sQ',
+                format: 'H m s',
             },
         },
     };
@@ -42,7 +42,7 @@ function Alarms(props) {
 
     let options_cumulative = {
         title: {
-            text: 'alarms ' + props.machine + ' last 4 hours',
+            text: 'alarms ' + props.machine + ' last '  + props.time_range + ' hours',
         },
         chart: {
             height: 300,

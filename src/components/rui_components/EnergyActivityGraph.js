@@ -15,10 +15,16 @@ function EnergyActivityGraph(props) {
             name: 'activity',
             type: 'line',
             data: props.data.chart_activity
+        },
+        {
+            name: 'energy_cost',
+            type: 'line',
+            data: props.data.chart_energy_cost
         }
     ];
 
     const options = {
+        colors: ['#008FFB', '#00E396', '#FF0000'],
             chart: {
                 height: 150,
                 type: 'line',
@@ -31,7 +37,7 @@ function EnergyActivityGraph(props) {
                 enabled: false
             },
             stroke: {
-                width: [1, 1, 4]
+                width: [3, 3, 3]
             },
             title: {
                 text: 'Energy usage and activity' + props.machine,
@@ -45,6 +51,7 @@ function EnergyActivityGraph(props) {
             yaxis: [
                 {
                     seriesName: 'energy_usage',
+                    decimalsInFloat: 0,
                     title: {
                         text: 'energy usage',
                         style: {
@@ -58,6 +65,7 @@ function EnergyActivityGraph(props) {
                     },
                 },
                 {
+                    decimalsInFloat: 0,
                     tickAmount: 4,
                     opposite: true,
                     min: 0,
@@ -75,7 +83,27 @@ function EnergyActivityGraph(props) {
                     },
 
                     seriesName: 'activity'
-                }
+                },
+                {
+                    decimalsInFloat: 3,
+                    seriesName: 'energy_cost',
+                    title: {
+                        text: 'energy cost',
+                        style: {
+                            color: '#FF0000',
+                        }
+                    },
+                    axisBorder: {
+                        show: true,
+                        color: '#FF0000',
+                        width: 0,
+                    },
+                    labels: {
+                        style: {
+                            color: '#FF0000',
+                        }
+                    },
+                },
             ],
             legend: {
                 horizontalAlign: 'left',
@@ -91,13 +119,8 @@ function EnergyActivityGraph(props) {
 
     return(
         <Grid container rowSpacing={3.5} columnSpacing={2.75}>
-            <Grid item xs={10}>
+            <Grid item xs={12}>
                 <Chart series={series} options={options} type={'line'} height={300}/>
-            </Grid>
-            <Grid item xs={2}>
-                <Typography>
-                    delta
-                </Typography>
             </Grid>
         </Grid>
 
