@@ -38,6 +38,35 @@ import avatar2 from 'assets/images/users/avatar-2.png';
 import avatar3 from 'assets/images/users/avatar-3.png';
 import avatar4 from 'assets/images/users/avatar-4.png';
 
+import { initializeApp } from 'firebase/app';
+import { getDatabase, ref, onValue} from "firebase/database";
+
+const firebaseConfig = {
+   apiKey: "AIzaSyB4L_9-Njajr0JXpPxI6g9rhyiFxWyOdj0",
+   authDomain: "mariorui-bc1e2.firebaseapp.com",
+   databaseURL: "https://mariorui-bc1e2-default-rtdb.europe-west1.firebasedatabase.app",
+   projectId: "mariorui-bc1e2",
+   storageBucket: "mariorui-bc1e2.appspot.com",
+   messagingSenderId: "436006171564",
+   appId: "1:436006171564:web:c886dec9d767d9a3780009"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase();
+const starCountRef = ref(db, '/');
+let counter = 0;
+onValue(starCountRef, (snapshot) => {
+  const data = snapshot.val();
+  if(counter>0){
+    Swal.fire({
+      icon: 'warning',
+      confirmButtonColor: '#1890ff',
+      title: 'WARNING',
+      text: data.message,
+    })
+  }
+  counter = counter + 1;
+});
 
 // avatar style
 const avatarSX = {
@@ -134,7 +163,6 @@ const DashboardDefault = () => {
                 var energy_avg = data[0].power_avg;
                 var idle = 100 - data[0].idle_time;
                 var piece_count = data[0].items;
-                console.log(data);
                 setTimePoint(time_point + 1);
 
                 setChartEnergy(update_chart(chart_energy, energy_avg));
@@ -167,7 +195,7 @@ const DashboardDefault = () => {
         <Grid container rowSpacing={3.5} columnSpacing={2.75}>
 
           <Grid item xs={12}>
-            <Typography variant="h5">Machine 1</Typography>
+            <Typography variant="h5">P01</Typography>
           </Grid>
 
           <Grid item xs={4}>
@@ -190,7 +218,7 @@ const DashboardDefault = () => {
 
 
           {flag && <Grid item xs={12}>
-            <Typography variant="h5">Machine 2</Typography>
+            <Typography variant="h5">P02</Typography>
           </Grid>}
 
           {flag && <Grid item xs={4}>
