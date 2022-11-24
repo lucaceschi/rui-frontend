@@ -17,14 +17,12 @@ import utilsReport from 'utils/utilsReport';
 
 // ======================================================================
 
-function PowerChart(props) {
+
+function TimeChart(props) {
     const dateSpan = props.dateSpan;    
-    const selPower = props.selPower;
-    
+    const selTime = props.selTime;
 
     const [allSeries, setAllSeries] = useState(null);
-    const [machineMean, setMachineMean] = useState(null);
-    const [machineVar, setMachineVar] = useState(null);
     const [pp1Mean, setPP1Mean] = useState(null);
     const [pp1Var, setPP1Var] = useState(null);
     const [pp2Mean, setPP2Mean] = useState(null);
@@ -33,30 +31,24 @@ function PowerChart(props) {
     const updateAllSeries = () => {
         let allS = [];
 
-        if(machineMean !== null && selPower['mean'])
-            allS = allS.concat(machineMean);
-        if(machineVar !== null && selPower['var'])
-            allS = allS.concat(machineVar);
-
-        if(pp1Mean !== null && selPower['pp1_mean'])
+        if(pp1Mean !== null && selTime['pp1_mean'])
             allS = allS.concat(pp1Mean);
-        if(pp1Var !== null && selPower['pp1_var'])
+        if(pp1Var !== null && selTime['pp1_var'])
             allS = allS.concat(pp1Var);
 
-        if(pp2Mean !== null && selPower['pp2_mean'])
+        if(pp2Mean !== null && selTime['pp2_mean'])
             allS = allS.concat(pp2Mean);
-        if(pp2Var !== null && selPower['pp2_var'])
+        if(pp2Var !== null && selTime['pp2_var'])
             allS = allS.concat(pp2Var);
 
         setAllSeries(allS);
         setIsLoading(false);
         setMachineLoading(false);
     };
-
-
+    
     const [options, setOptions] = useState({
         chart: {
-            id: 'power',
+            id: 'time',
             group: 'P01',
             animations: {
                 enabled: false
@@ -92,7 +84,7 @@ function PowerChart(props) {
             showForSingleSeries: true
         },
         title: {
-            text: 'Power consumption statistics',
+            text: 'Production time cycles',
             align: 'center'
         },
         xaxis: {
@@ -105,7 +97,7 @@ function PowerChart(props) {
         yaxis: {
             decimalsInFloat: 0,
             title: {
-                text: "Power Consumption (kWh)",
+                text: "Time Cycle (s)",
             }
         }
     });
@@ -115,53 +107,18 @@ function PowerChart(props) {
 
     useEffect(() => {
         updateAllSeries();
-    }, [selPower]);
+    }, [selTime]);
 
     useEffect(() => {
         var dateStart = dateSpan[0].format('YYYY-MM-DD HH:mm');
         var dateEnd   = dateSpan[1].format('YYYY-MM-DD HH:mm');
-        var i = 0;
 
         setIsLoading(true);
         setMachineLoading(true);
 
-        fetch('/get_data_session?' + new URLSearchParams({start_date:dateStart, end_date: dateEnd}))
-        .then(res => res = res.json())
-        .then(d => {
-
-            setMachineMean({
-                name: 'Machine mean',
-                type: 'line',
-                data: d.map(function (currD) {
-                    return {
-                        x: dayjs(currD['ts']).format(),
-                        y: parseFloat(currD['power_mean'])
-                    }
-                })
-            });
-
-            setMachineVar({
-                name: 'Machine deviation',
-                type: 'line',
-                data: d.map(function (currD) {
-                    return {
-                        x: dayjs(currD['ts']).format(),
-                        y: Math.sqrt(parseFloat(currD['power_var']))
-                    }
-                })
-            });
-
-            i++;
-            if(i == 2)
-            {
-                updateAllSeries();    
-            }
-        });
-
         fetch('/get_data_part_program?' + new URLSearchParams({start_date:dateStart, end_date: dateEnd}))
         .then(res => res = res.json())
         .then(d => {
-            let s = [];
 
             var pp1_mean = [];
             var pp2_mean = [];
@@ -169,12 +126,12 @@ function PowerChart(props) {
                 if(currD['part_program'] == 1)
                     pp1_mean.push({
                         x: dayjs(currD['ts']).format(),
-                        y: parseFloat(currD['power_mean'])
+                        y: parseFloat(currD['cycle_time_mean'])
                     });
                 else if(currD['part_program'] == 2)
                     pp2_mean.push({
                         x: dayjs(currD['ts']).format(),
-                        y: parseFloat(currD['power_mean'])
+                        y: parseFloat(currD['cycle_time_mean'])
                     });
             });
 
@@ -196,12 +153,12 @@ function PowerChart(props) {
                 if(currD['part_program'] == 1)
                     pp1_var.push({
                         x: dayjs(currD['ts']).format(),
-                        y: Math.sqrt(parseFloat(currD['power_var']))
+                        y: Math.sqrt(parseFloat(currD['cycle_time_var']))
                     });
                 else if(currD['part_program'] == 2)
                     pp2_var.push({
                         x: dayjs(currD['ts']).format(),
-                        y: Math.sqrt(parseFloat(currD['power_var']))
+                        y: Math.sqrt(parseFloat(currD['cycle_time_var']))
                     });
             });
 
@@ -217,15 +174,11 @@ function PowerChart(props) {
                     data: pp2_var
             });
             
-            i++;
-            if(i == 2)
-            {
-                updateAllSeries();
-            }
+            updateAllSeries();
         });
 
     }, [dateSpan]);
-    
+
     
     //---functions for context menu management---
     const [context_menu, setContextMenu] = useState(null);
@@ -250,7 +203,7 @@ function PowerChart(props) {
         );
     else
         return (
-            <ReactApexChart id="hist_power" onContextMenu={handleContextMenu} series={allSeries} options={options} type='line' height='400px'>
+            <ReactApexChart id="hist_time" onContextMenu={handleContextMenu} series={allSeries} options={options} type='line' height='400px'>
                 <Menu
                     open={context_menu !== null}
                     onClose={handleClose}
@@ -261,11 +214,12 @@ function PowerChart(props) {
                             : undefined
                     }
                 >
-                    <MenuItem onClick={function (){utilsReport.addElement(document.getElementById("hist_power")); handleClose()}}>Add to report</MenuItem>
-                    <MenuItem onClick={function (){utilsReport.removeElement(document.getElementById("hist_power")); handleClose()}}>Remove from report</MenuItem>
+                    <MenuItem onClick={function (){utilsReport.addElement(document.getElementById("hist_time")); handleClose()}}>Add to report</MenuItem>
+                    <MenuItem onClick={function (){utilsReport.removeElement(document.getElementById("hist_time")); handleClose()}}>Remove from report</MenuItem>
                 </Menu>
             </ReactApexChart>
         );
+
 }
 
-export default PowerChart;
+export default TimeChart;

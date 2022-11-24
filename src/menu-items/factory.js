@@ -31,7 +31,7 @@ const factory = {
         },
         {
             id: 'calculator',
-            title: 'Energy calculator',
+            title: 'Resources Calculator',
             type: 'item',
             url: '/calculator',
             icon: icons.CalculatorOutlined,

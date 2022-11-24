@@ -18,7 +18,9 @@ import {
 import DateSelection from './DateSelection';
 import MachineChartSelector from './MachineChartSelector';
 import PowerChart from './PowerChart';
-import StatusCharts from './StatusCharts';
+import TimeChart from './TimeChart';
+import PieceCountChart from './PieceCountChart';
+import StateChart from './StateChart';
 import Loader from 'components/Loader';
 
 // ======================================================================
@@ -28,22 +30,79 @@ function DataHistory() {
     const [dateSpan, setDateSpan] = useState([null, null]);
 
     const [selPower, setSelPower] = useState({
-        'powerMin': false,
-        'powerMax': false,
-        'powerAvg': false,
-        'powerPred': false
+        'mean': false,
+        'var': false,
+        'pp1_mean': false,
+        'pp1_var': false,
+        'pp2_mean': false,
+        'pp2_var': false,
     });
 
-    const [selStatus, setSelStatus] = useState({
-        'activity': false
+    const [selActivityPerc, setSelActivityPerc] = useState(false);
+
+    const [selSwitchCount, setSelSwitchCount] = useState(false);
+
+    const [selAlarm, setSelAlarm] = useState(false);
+
+    const [selTime, setSelTime] = useState({
+        'pp1_mean': false,
+        'pp1_var': false,
+        'pp2_mean': false,
+        'pp2_var': false,
     });
+
+    const [selPieceCount, setSelPieceCount] = useState({
+        'pp1': false,
+        'pp2': false
+    })
 
     const [isMachineLoading, setMachineLoading] = useState(false);
 
     const atLeastOneSel = () => {
-        return (selPower['powerMin'] || selPower['powerMax'] || selPower['powerAvg'] || selPower['powerPred'] ||
-                selStatus['activity']);
+        return (
+            selPower['mean'] ||
+            selPower['var'] ||
+            selPower['pp1_mean'] ||
+            selPower['pp1_var'] ||
+            selPower['pp2_mean'] ||
+            selPower['pp2_var'] ||
+            selActivityPerc ||
+            selSwitchCount ||
+            selAlarm ||
+            selTime['pp1_mean'] ||
+            selTime['pp1_var'] ||
+            selTime['pp2_mean'] ||
+            selTime['pp2_var'] ||
+            selPieceCount['pp1'] ||
+            selPieceCount['pp2']
+        );
     };
+
+    const atLeastOneSelPower = () => {
+        return (
+            selPower['mean'] ||
+            selPower['var'] ||
+            selPower['pp1_mean'] ||
+            selPower['pp1_var'] ||
+            selPower['pp2_mean'] ||
+            selPower['pp2_var']
+        );
+    };
+
+    const atLeastOneSelTime = () => {
+        return (
+            selTime['pp1_mean'] ||
+            selTime['pp1_var'] ||
+            selTime['pp2_mean'] ||
+            selTime['pp2_var']
+        );
+    }
+
+    const atLeastOneSelPC = () => {
+        return(
+            selPieceCount['pp1'] || selPieceCount['pp2']
+        );
+    }
 
 
     return (
@@ -63,11 +122,17 @@ function DataHistory() {
                                 Machine data: P01
                             </Typography>
                             <Stack spacing={2}>
-                                { (selPower['powerMin'] || selPower['powerMax'] || selPower['powerAvg'] || selPower['powerPred']) &&
-                                    <PowerChart name='P01' dateSpan={dateSpan} selPower={selPower} setMachineLoading={setMachineLoading}/>
+                                { (selSwitchCount) &&
+                                    <StateChart dateSpan={dateSpan} setMachineLoading={setMachineLoading}/>
                                 }
-                                { (selStatus['activity']) &&
-                                    <StatusCharts name='P01' dateSpan={dateSpan} selStatus={selStatus} setMachineLoading={setMachineLoading}/>
+                                { (atLeastOneSelPower()) &&
+                                    <PowerChart dateSpan={dateSpan} selPower={selPower} setMachineLoading={setMachineLoading}/>
+                                }
+                                { (atLeastOneSelTime()) &&
+                                    <TimeChart dateSpan={dateSpan} selTime={selTime} setMachineLoading={setMachineLoading}/>
+                                }
+                                { (atLeastOneSelPC()) &&
+                                    <PieceCountChart dateSpan={dateSpan} selPieceCount={selPieceCount} setMachineLoading={setMachineLoading}/>
                                 }
                             </Stack>
                         </CardContent>
@@ -77,10 +142,13 @@ function DataHistory() {
             <Grid item xs={3} sx={{ mb: -2.25 }}>
                 <DateSelection dateSpanSetter={setDateSpan} />
                 <MachineChartSelector
-                    name='P01'
-                    pps={['A', 'B', 'C']}
                     selPower={selPower} setSelPower={setSelPower}
-                    selStatus={selStatus} setSelStatus={setSelStatus}
+                    selActivityPerc={selActivityPerc} setSelActivityPerc={setSelActivityPerc}
+                    selSwitchCount={selSwitchCount} setSelSwitchCount={setSelSwitchCount}
+                    selAlarm={selAlarm} setSelAlarm={setSelAlarm}
+                    selTime={selTime} setSelTime={setSelTime}
+                    selPieceCount={selPieceCount} setSelPieceCount={setSelPieceCount}
+                    setMachineLoading={setMachineLoading}
                 />
             </Grid>
         </Grid>

@@ -27,122 +27,95 @@ import Android12Switch from "./Android12Switch";
 
 function MachineChartSelector(props) {
 
-    const selPower = props.selPower;
-    const setSelPower = props.setSelPower;
-    const selStatus = props.selStatus;
-    const setSelStatus = props.setSelStatus;
-
     const [globalSel, setGlobalSel] = useState([false, false]);
 
     const onChangeGlobal = (event) => {
         const val = event.target.checked;
-        setGlobalSel([val, false]);
-        setSelPower({
-            'powerMin': val,
-            'powerMax': val,
-            'powerAvg': val,
-            'energyCost': val
+
+        props.setSelPower({
+            'mean': val,
+            'var': val,
+            'pp1_mean': val,
+            'pp1_var': val,
+            'pp2_mean': val,
+            'pp2_var': val
         });
-        setSelStatus({
-            'activity': val
+
+        props.setSelActivityPerc(val);
+        props.setSelActivityNum(val);
+        props.setSelAlarm(val);
+
+        props.setSelTime({
+            'pp1_mean': val,
+            'pp1_var': val,
+            'pp2_mean': val,
+            'pp2_var': val
         })
+
+        props.setSelPieceCount({
+            'pp1': val,
+            'pp2': val
+        })
+
+        setGlobalSel([val, false]);
     }
 
-    const handlePowerMin = (event) => {
-        setSelPower({...selPower, 'powerMin': event.target.checked});
-        const checkAll = (event.target.checked &&
-                          selPower['powerMax'] &&
-                          selPower['powerAvg'] &&
-                          selPower['energyCost']
-                          );
-        
-        const checkInd =  (!checkAll && (
-                           event.target.checked ||
-                           selPower['powerMax'] ||
-                           selPower['powerAvg'] ||
-                           selPower['energyCost']));
+    const handlePowerMean = (event) => {
+        props.setSelPower({...props.selPower, 'mean': event.target.checked});
+    };   
 
-        setGlobalSel([checkAll, checkInd]);
+    const handlePowerVar = (event) => {
+        props.setSelPower({...props.selPower, 'var': event.target.checked});
     };
 
-    const handlePowerMax = (event) => {
-        setSelPower({...selPower, 'powerMax': event.target.checked});
-        const checkAll = (event.target.checked &&
-                          selPower['powerMin'] &&
-                          selPower['powerAvg'] &&
-                          selPower['energyCost']
-                          );
-        
-        const checkInd =  (!checkAll && (
-                           event.target.checked ||
-                           selPower['powerMin'] ||
-                           selPower['powerAvg'] ||
-                           selPower['energyCost']));
+    const handlePowerMeanPP1 = (event) => {
+        props.setSelPower({...props.selPower, 'pp1_mean': event.target.checked});
+    };   
 
-        setGlobalSel([checkAll, checkInd]);
+    const handlePowerVarPP1 = (event) => {
+        props.setSelPower({...props.selPower, 'pp1_var': event.target.checked});
     };
 
-    const handlePowerAvg = (event) => {
-        setSelPower({...selPower, 'powerAvg': event.target.checked});
-        const checkAll = (event.target.checked &&
-                          selPower['powerMin'] &&
-                          selPower['powerMax'] &&
-                          selPower['energyCost']
-                          );
-        
-        const checkInd =  (!checkAll && (
-                           event.target.checked ||
-                           selPower['powerMin'] ||
-                           selPower['powerMax'] ||
-                           selPower['energyCost']));
+    const handleTimeMeanPP1 = (event) => {
+        props.setSelTime({...props.selTime, 'pp1_mean': event.target.checked});
+    };   
 
-        setGlobalSel([checkAll, checkInd]);
+    const handleTimeVarPP1 = (event) => {
+        props.setSelTime({...props.selTime, 'pp1_var': event.target.checked});
     };
 
-    const handleEnergyCost = (event) => {
-        setSelPower({...selPower, 'energyCost': event.target.checked});
-        const checkAll = (event.target.checked &&
-                          selPower['powerMin'] &&
-                          selPower['powerMax'] &&
-                          selPower['powerAvg']);
-        
-        const checkInd =  (!checkAll && (
-                           event.target.checked ||
-                           selPower['powerMin'] ||
-                           selPower['powerMax'] ||
-                           selPower['powerAvg']));
+    const handleTimeMeanPP2 = (event) => {
+        props.setSelTime({...props.selTime, 'pp2_mean': event.target.checked});
+    };   
 
-        setGlobalSel([checkAll, checkInd]);
+    const handleTimeVarPP2 = (event) => {
+        props.setSelTime({...props.selTime, 'pp2_var': event.target.checked});
     };
 
-    // =======================================================================
+    const handlePowerMeanPP2 = (event) => {
+        props.setSelPower({...props.selPower, 'pp2_mean': event.target.checked});
+    };   
 
-    const handleActivity = (event) => {
-        setSelStatus({...selStatus, 'activity': event.target.checked});
-        const checkAll = (event.target.checked &&
-                          selPower['powerMin'] &&
-                          selPower['powerMax'] &&
-                          selPower['powerAvg'] &&
-                          selPower['energyCost']
-                          );
-        
-        const checkInd =  (!checkAll && (
-                           event.target.checked ||
-                           selPower['powerMin'] ||
-                           selPower['powerMax'] ||
-                           selPower['powerAvg'] ||
-                           selPower['energyCost']));
-
-        setGlobalSel([checkAll, checkInd]);
+    const handlePowerVarPP2 = (event) => {
+        props.setSelPower({...props.selPower, 'pp2_var': event.target.checked});
     };
 
-    /*const handleActivity   = (event) => { setSel({...sel, 'activity': event.target.checked}); };
-    const handleAlarms     = (event) => { setSel({...sel, 'alarms': event.target.checked}); };
-    const handlePieceTime  = (event) => { setSel({...sel, 'pieceTime': (event.target.checked? props.pps : []) }); };
-    const handlePieceCount = (event) => { setSel({...sel, 'pieceCount': (event.target.checked? props.pps : []) }); };
+    const handleCountPP1 = (event) => {
+        props.setSelPieceCount({...props.selPieceCount, 'pp1': event.target.checked});
+    };
+    
+    const handleCountPP2 = (event) => {
+        props.setSelPieceCount({...props.selPieceCount, 'pp2': event.target.checked});
+    };
 
-    console.log(sel);
-    console.log(selPower);*/
+    const handleSwitchCount= (event) => {
+        props.setSelSwitchCount(event.target.checked);
+    };
+    
+    /*const handleAlarm = (event) => {
+        props.setSelAlarm(event.target.checked);
+    };*/
+
 
     return (
         <Accordion defaultExpanded={true}>
@@ -167,49 +140,146 @@ function MachineChartSelector(props) {
             </AccordionSummary>
             <AccordionDetails>
                 <Stack spacing={2}>
-                    {/*
-                    <div><Box sx={{ display: 'flex', flexDirection: 'column', ml: 2, mr: 2}}>
-                        <Divider textAlign="center" variant='middle'><Typography variant='overline'>Production</Typography></Divider>
-                        <FormControlLabel
-                            label="Cycle time"
-                            control={<Android12Switch checked={sel['pieceTime'].length > 0} onChange={handlePieceTime} />}
-                        />
-                        <FormControlLabel
-                            label="Produced items"
-                            control={<Android12Switch checked={sel['pieceCount'].length > 0} onChange={handlePieceCount} />}
-                        />
-                    </Box></div>*/}
-                    <div><Box sx={{ display: 'flex', flexDirection: 'column', ml: 2, mr: 2 }}>
-                        <Divider textAlign="center" variant='middle'><Typography variant='overline'>Energy</Typography></Divider>
-                        <FormControlLabel
-                            label="Min Power Consumption"
-                            control={<Android12Switch checked={selPower['powerMin']} onChange={handlePowerMin} />}
-                        />
-                        <FormControlLabel
-                            label="Max Power Consumption"
-                            control={<Android12Switch checked={selPower['powerMax']} onChange={handlePowerMax} />}
-                        />
-                        <FormControlLabel
-                            label="Average Power Consumption"
-                            control={<Android12Switch checked={selPower['powerAvg']} onChange={handlePowerAvg} />}
-                        />
-                        <FormControlLabel
-                            label="Average Energy Costs"
-                            control={<Android12Switch checked={selPower['energyCost']} onChange={handleEnergyCost} />}
-                        />
-                    </Box></div>
-
                     <div><Box sx={{ display: 'flex', flexDirection: 'column', ml: 2, mr: 2}}>
                         <Divider textAlign="center" variant='middle'><Typography variant='overline'>Status</Typography></Divider>
                         <FormControlLabel
-                            label="Activity"
-                            control={<Android12Switch checked={selStatus['activity']} onChange={handleActivity} />}
+                            label="State Switches Count"
+                            control={<Android12Switch checked={props.selSwitchCount} onChange={handleSwitchCount} />}
                         />
                         {/*<FormControlLabel
                             label="Alarms"
-                            control={<Android12Switch checked={sel['alarms']} onChange={handleAlarms} />}
+                            control={<Android12Switch checked={props.selAlarm} onChange={handleAlarm} />}
                         />*/}
                     </Box></div>
+                    <div><Box sx={{ display: 'flex', flexDirection: 'column', ml: 2, mr: 2 }}>
+                        <Divider textAlign="center" variant='middle'><Typography variant='overline'>Power consumption</Typography></Divider>
+                        <FormControlLabel
+                            label="Machine Mean"
+                            control={<Android12Switch checked={props.selPower['mean']} onChange={handlePowerMean} />}
+                        />
+                        <FormControlLabel
+                            label="Machine Deviation"
+                            control={<Android12Switch checked={props.selPower['var']} onChange={handlePowerVar} />}
+                        />
+                        <FormControlLabel
+                            label="PP1 Mean"
+                            control={<Android12Switch checked={props.selPower['pp1_mean']} onChange={handlePowerMeanPP1} />}
+                        />
+                        <FormControlLabel
+                            label="PP1 Deviation"
+                            control={<Android12Switch checked={props.selPower['pp1_dev']} onChange={handlePowerVarPP1} />}
+                        />
+                        <FormControlLabel
+                            label="PP2 Mean"
+                            control={<Android12Switch checked={props.selPower['pp2_mean']} onChange={handlePowerMeanPP2} />}
+                        />
+                        <FormControlLabel
+                            label="PP2 Deviation"
+                            control={<Android12Switch checked={props.selPower['pp2_dev']} onChange={handlePowerVarPP2} />}
+                        />
+                    </Box></div>
+                    <div><Box sx={{ display: 'flex', flexDirection: 'column', ml: 2, mr: 2}}>
+                        <Divider textAlign="center" variant='middle'><Typography variant='overline'>Production times</Typography></Divider>
+                        <FormControlLabel
+                            label="PP1 Mean Cycle Time"
+                            control={<Android12Switch checked={props.selTime['pp1_mean']} onChange={handleTimeMeanPP1} />}
+                        />
+                        <FormControlLabel
+                            label="PP1 Variance Cycle Time"
+                            control={<Android12Switch checked={props.selTime['pp1_var']} onChange={handleTimeVarPP1} />}
+                        />
+                        <FormControlLabel
+                            label="PP2 Mean Cycle Time"
+                            control={<Android12Switch checked={props.selTime['pp2_mean']} onChange={handleTimeMeanPP2} />}
+                        />
+                        <FormControlLabel
+                            label="PP2 Variance Cycle Time"
+                            control={<Android12Switch checked={props.selTime['pp2_var']} onChange={handleTimeVarPP2} />}
+                        />
+                    </Box></div>
+                    <div><Box sx={{ display: 'flex', flexDirection: 'column', ml: 2, mr: 2}}>
+                        <Divider textAlign="center" variant='middle'><Typography variant='overline'>Production counts</Typography></Divider>
+                        <FormControlLabel
+                            label="PP1 Piece Count"
+                            control={<Android12Switch checked={props.selPieceCount['pp1']} onChange={handleCountPP1} />}
+                        />
+                        <FormControlLabel
+                            label="PP2 Piece Count"
+                            control={<Android12Switch checked={props.selPieceCount['pp2']} onChange={handleCountPP2} />}
+                        />
+                    </Box></div>
+                    
+                    {/*
+                    <div><Box sx={{ display: 'flex', flexDirection: 'column', ml: 2, mr: 2}}>
+                        <Divider textAlign="center" variant='middle'><Typography variant='overline'>Status</Typography></Divider>
+                        <FormControlLabel
+                            label="Activity (%)"
+                            control={<Android12Switch checked={props.selActivityPerc} onChange={handleActivityPerc} />}
+                        />
+                        <FormControlLabel
+                            label="Activity (#)"
+                            control={<Android12Switch checked={props.selActivityNum} onChange={handleActivityNum} />}
+                        />
+                        <FormControlLabel
+                            label="Alarms"
+                            control={<Android12Switch checked={props.selAlarm} onChange={handleAlarm} />}
+                        />
+                    </Box></div>
+                    <div><Box sx={{ display: 'flex', flexDirection: 'column', ml: 2, mr: 2}}>
+                        <Divider textAlign="center" variant='middle'><Typography variant='overline'>Part program 1</Typography></Divider>
+                        <FormControlLabel
+                            label="Total Power Consumption"
+                            control={<Android12Switch checked={selPower['pp1_total']} onChange={handlePowerMinPP1} />}
+                        />
+                        <FormControlLabel
+                            label="Mean Power Consumption"
+                            control={<Android12Switch checked={selPower['pp1_mean']} onChange={handlePowerMaxPP1} />}
+                        />
+                        <FormControlLabel
+                            label="Variance Power Consumption"
+                            control={<Android12Switch checked={selPower['pp1_var']} onChange={handlePowerAvgPP1} />}
+                        />
+                        <FormControlLabel
+                            label="Mean Cycle Time"
+                            control={<Android12Switch checked={selPower['powerMin']} onChange={handlePowerMin} />}
+                        />
+                        <FormControlLabel
+                            label="Variance Cycle Time"
+                            control={<Android12Switch checked={selPower['powerMax']} onChange={handlePowerMax} />}
+                        />
+                        <FormControlLabel
+                            label="Total Piece Count"
+                            control={<Android12Switch checked={selPower['powerAvg']} onChange={handlePowerAvg} />}
+                        />
+                    </Box></div>
+                    <div><Box sx={{ display: 'flex', flexDirection: 'column', ml: 2, mr: 2}}>
+                        <Divider textAlign="center" variant='middle'><Typography variant='overline'>Part program 2</Typography></Divider>
+                        <FormControlLabel
+                            label="Total Power Consumption"
+                            control={<Android12Switch checked={selPower['powerMin']} onChange={handlePowerMin} />}
+                        />
+                        <FormControlLabel
+                            label="Mean Power Consumption"
+                            control={<Android12Switch checked={selPower['powerMax']} onChange={handlePowerMax} />}
+                        />
+                        <FormControlLabel
+                            label="Variance Power Consumption"
+                            control={<Android12Switch checked={selPower['powerAvg']} onChange={handlePowerAvg} />}
+                        />
+                        <FormControlLabel
+                            label="Mean Cycle Time"
+                            control={<Android12Switch checked={selPower['powerMin']} onChange={handlePowerMin} />}
+                        />
+                        <FormControlLabel
+                            label="Variance Cycle Time"
+                            control={<Android12Switch checked={selPower['powerMax']} onChange={handlePowerMax} />}
+                        />
+                        <FormControlLabel
+                            label="Total Piece Count"
+                            control={<Android12Switch checked={selPower['powerAvg']} onChange={handlePowerAvg} />}
+                        />
+                    </Box></div>
+                    */}
                 </Stack>
             </AccordionDetails>
         </Accordion>
