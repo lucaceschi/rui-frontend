@@ -170,19 +170,19 @@ const DashboardDefault = () => {
 
           <Grid item xs={4}>
               <Item className = {'rep'}>
-                  <SLChart data={chart_energy} series_type={'Energy Usage (kWh)'} id={"energy_usage_machine1"} group="A"/>
+                  <SLChart data={chart_energy} series_type={'Energy Usage (kWh)'} id={"energy_usage_machine1"}/>
               </Item>
           </Grid>
 
           <Grid item xs={4}>
               <Item className={'rep'}>
-                  <SLChart data={chart_idle} series_type={'Activity (%)'} id={"activity_machine1"} group="A"/>
+                  <SLChart data={chart_idle} series_type={'Activity (%)'} id={"activity_machine1"}/>
               </Item>
           </Grid>
 
           <Grid item xs={4}>
               <Item className={'rep'}>
-                  <SLChart data={chart_piece_count} series_type={'Piece Count'} id={"piece_count_machine1"} group="A"/>
+                  <SLChart data={chart_piece_count} series_type={'Piece Count'} id={"piece_count_machine1"}/>
               </Item>
           </Grid>
 
@@ -193,19 +193,19 @@ const DashboardDefault = () => {
 
           {flag && <Grid item xs={4}>
               <Item className={'rep'}>
-                  <SLChart data={chart_energy_2} series_type={'Energy Usage (kWh)'} id={"energy_usage_machine2"} group="B"/>
+                  <SLChart data={chart_energy_2} series_type={'Energy Usage (kWh)'} id={"energy_usage_machine2"}/>
               </Item>
           </Grid>}
 
           {flag && <Grid item xs={4}>
               <Item className={'rep'}>
-                  <SLChart data={chart_idle_2} series_type={'Activity (%)'} id={"activity_machine2"} group="B"/>
+                  <SLChart data={chart_idle_2} series_type={'Activity (%)'} id={"activity_machine2"}/>
               </Item>
           </Grid>}
 
           {flag && <Grid item xs={4}>
               <Item className={'rep'}>
-                  <SLChart data={chart_piece_count_2} series_type={'Piece Count'} id={"piece_count_machine2"} group="B"/>
+                  <SLChart data={chart_piece_count_2} series_type={'Piece Count'} id={"piece_count_machine2"}/>
               </Item>
           </Grid>}
 

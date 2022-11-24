@@ -41,8 +41,6 @@ function SLChart(props){
 
   const options = {
     chart: {
-      id: props.id,
-      group: props.group,
       type: 'area',
       height: 160,
       sparkline: {
