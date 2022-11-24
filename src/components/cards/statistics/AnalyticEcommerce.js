@@ -90,7 +90,7 @@ function AnalyticEcommerce ({ id, color, title, count, percentage, isLoss, type,
                 <Typography component="span" variant="caption" sx={{ color: `${color || 'primary'}.main` }}>
                     {extra}
                 </Typography>{' '}
-                this month
+                during last turn
             </Typography>
         </Box>
     </MainCard>
