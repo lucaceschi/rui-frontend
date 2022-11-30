@@ -255,7 +255,7 @@ const DashboardDefault = () => {
           {flag && <Grid item xs={4}>
             <Item className={"rep"}>
             <Typography variant="h5">Total Energy Consumption</Typography>
-                <DonutChart series={donut_chart_data} machines={['machine1', 'machine2']} id={"energy_consumption"}/>
+                <DonutChart series={donut_chart_data} machines={['P01', 'P02']} id={"energy_consumption"}/>
             </Item>
           </Grid>}
 
