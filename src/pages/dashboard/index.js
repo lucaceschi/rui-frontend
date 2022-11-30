@@ -198,12 +198,22 @@ const DashboardDefault = () => {
             <AnalyticEcommerce id = {"FIX"} title="Price per product" count={"$5.79(I'm not real..)"} />
           </Grid>
 
-          <Grid item xs={4}>
-              <AnalyticEcommerce id = {"total_products"} analytics={true} title="Cycle Time of PP1 (sec)" type="saved" count="40,236" isLoss color="warning" percentage={14.6} extra="3,000" />
-          </Grid>
+          {flag && <Grid item xs={4}>
+            <Item className={"rep"}>
+            <Typography variant="h5">Total Energy Consumption</Typography>
+                <DonutChart series={donut_chart_data} machines={['P01', 'P02']} id={"energy_consumption"}/>
+            </Item>
+          </Grid>}
 
           <Grid item xs={4}>
+              <AnalyticEcommerce id = {"total_products"} analytics={true} title="Cycle Time of PP1 (sec)" type="saved" count="40,236" isLoss color="warning" percentage={14.6} extra="3,000" />
+              <br/>
               <AnalyticEcommerce id={"total_energy"} analytics={true} title="Energy Consumed in PP2 (kWh)" type="saved" count="2,549" percentage={18} extra="300" />
+          </Grid>
+          <Grid item xs={4}>
+              <AnalyticEcommerce id = {"total_products"} analytics={true} title="Energy Consumed of PP1 (sec)" type="saved" count="40,236" isLoss color="warning" percentage={14.6} extra="3,000" />
+              <br/>
+              <AnalyticEcommerce id={"total_energy"} analytics={true} title="Cycle Time of PP2 (kWh)" type="saved" count="2,549" percentage={18} extra="300" />
           </Grid>
 
           <Grid item xs={12}>
@@ -249,14 +259,6 @@ const DashboardDefault = () => {
               <Item className={'rep'}>
                   <SLChart data={chart_piece_count_2} series_type={'Piece Count'} id={"piece_count_machine2"}/>
               </Item>
-          </Grid>}
-
-
-          {flag && <Grid item xs={4}>
-            <Item className={"rep"}>
-            <Typography variant="h5">Total Energy Consumption</Typography>
-                <DonutChart series={donut_chart_data} machines={['P01', 'P02']} id={"energy_consumption"}/>
-            </Item>
           </Grid>}
 
         </Grid>
