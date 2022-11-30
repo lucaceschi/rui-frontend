@@ -26,7 +26,11 @@ function PieceCount(props) {
             width: [3,3],
         },
         title: {
-            text: 'piece count ' + props.machine,
+            text: 'Piece count ' + props.machine,
+            style: {
+                fontSize:  '22px',
+                fontWeight:  'bold',
+            },
         },
         xaxis: {
             type: 'datetime'
@@ -54,18 +58,31 @@ function PieceCount(props) {
 
     const options_cumulative = {
         title: {
-            text: 'total items ' + props.machine + 'last ' + props.time_range + ' hours',
+            text: 'Total items ' + props.machine + ' last ' + props.time_range + ' hours',
+            style: {
+                fontSize:  '22px',
+                fontWeight:  'bold',
+            },
         },
         chart: {
             height: 300,
             type: 'bar',
         },
         xaxis: {
-            categories: ['porgram1', 'program2']
+            categories: ['porgram1', 'program2'],
+            labels:{
+                style:{
+                    fontSize: '14px',
+                }
+            },
         },
         yaxis: {
             title: {
-                text: 'number of items'
+                text: 'number of items',
+                style: {
+                    fontSize:  '14px',
+                    fontWeight:  'bold',
+                },
             }
         }
     };

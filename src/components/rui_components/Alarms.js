@@ -11,7 +11,11 @@ function Alarms(props) {
 
     let options = {
         title: {
-            text: 'alarms ' + props.machine,
+            text: 'Alarms ' + props.machine,
+            style: {
+                fontSize:  '22px',
+                fontWeight:  'bold',
+            },
         },
         chart: {
             type: 'rangeBar',
@@ -26,6 +30,13 @@ function Alarms(props) {
             type: 'datetime',
             min: props.min,
             max: props.max,
+        },
+        yaxis: {
+            labels: {
+                style:{
+                    fontSize: '14px',
+                }
+            }
         },
         tooltip: {
             x: {
@@ -42,7 +53,11 @@ function Alarms(props) {
 
     let options_cumulative = {
         title: {
-            text: 'alarms ' + props.machine + ' last '  + props.time_range + ' hours',
+            text: 'Alarms ' + props.machine + ' last '  + props.time_range + ' hours',
+            style: {
+                fontSize:  '22px',
+                fontWeight:  'bold',
+            },
         },
         chart: {
             height: 300,
@@ -54,6 +69,9 @@ function Alarms(props) {
         yaxis: {
             title: {
               text: 'Time in alarm (secs)',
+                style:{
+                    fontSize: '14px',
+                }
             },
         },
     };

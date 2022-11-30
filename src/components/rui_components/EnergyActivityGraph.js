@@ -40,9 +40,13 @@ function EnergyActivityGraph(props) {
                 width: [3, 3, 3]
             },
             title: {
-                text: 'Energy usage and activity' + props.machine,
+                text: 'Energy usage and activity ' + props.machine,
                 align: 'left',
-                offsetX: 0
+                offsetX: 0,
+                style: {
+                    fontSize:  '22px',
+                    fontWeight:  'bold',
+                },
             },
             xaxis: {
                 type: 'datetime'
@@ -56,6 +60,7 @@ function EnergyActivityGraph(props) {
                         text: 'energy usage',
                         style: {
                             color: '#008FFB',
+                            fontSize: '14px',
                         },
                     },
                     axisBorder: {
@@ -79,6 +84,7 @@ function EnergyActivityGraph(props) {
                         text: 'activity (%)',
                         style: {
                             color: '#00E396',
+                            fontSize: '14px',
                         },
                     },
 
@@ -91,6 +97,7 @@ function EnergyActivityGraph(props) {
                         text: 'energy cost',
                         style: {
                             color: '#FF0000',
+                            fontSize: '14px',
                         }
                     },
                     axisBorder: {

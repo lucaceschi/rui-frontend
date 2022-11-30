@@ -19,13 +19,14 @@ const factory = {
             type: 'item',
             url: '/history',
             icon: icons.HistoryOutlined,
-            breadcrumbs: false
+            breadcrumbs: false,
         },
         {
             id: 'realtime',
             title: 'Real-time Monitoring',
             type: 'item',
             url: '/realtime',
+            target: 1,
             icon: icons.StockOutlined,
             breadcrumbs: false
         },

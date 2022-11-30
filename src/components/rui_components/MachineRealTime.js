@@ -7,8 +7,6 @@ import Alarms from "./Alarms";
 
 function MachineRealTime(props) {
     const asset = 'P01';
-    const range = window.time_point > 60 ? window.time_point - 60 : 0;
-    const [flag, setFlag] = useState(0);
     //state variables
     const [time_point, setTimePoint] = useState(window.time_point);
     const [chart_energy, setChartEnergy] = useState([]);
@@ -56,6 +54,13 @@ function MachineRealTime(props) {
     };
 
     useEffect(() => {
+        fetch('/get_real_time_data?' + new URLSearchParams({asset:asset, index: window.time_point})).then(res => res = res.json()).then(data => {
+            let time = data[0].ts;
+            setChartAlarms(update_alarm(chart_alarms, {x: 'alarm 1', y: [time, time]}));
+        });
+    }, []);
+
+    useEffect(() => {
         const interval = setInterval(() => {
             fetch('/get_real_time_data?' + new URLSearchParams({asset:asset, index: time_point})).then(res => res = res.json()).then(data => {
                 let idle = 100 - data[0].idle_time;
@@ -100,6 +105,7 @@ function MachineRealTime(props) {
                 }
                 setSumAlarms(sums);
                 window.time_point = time_point;
+                console.log(window.time_point);
             });
         }, 1000);
         return () => {

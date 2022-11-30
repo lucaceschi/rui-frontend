@@ -17,8 +17,8 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function RealTimeMonitoring() {
     const [anchor_el, setAnchorEl] = useState(null);
-    const [machine, setMachine] = useState('machine 1');
-    const [time_range, setTimeRange] = useState(4);
+    const [machine, setMachine] = useState('P01');
+    const [time_range, setTimeRange] = useState(1);
     const open = Boolean(anchor_el);
 
     const handleClick = (e) => {
@@ -61,9 +61,8 @@ function RealTimeMonitoring() {
                         onClose={handleClose}
                         TransitionComponent={Fade}
                     >
-                        <MenuItem onClick={handleSelect}>machine 1</MenuItem>
-                        <MenuItem onClick={handleSelect}>machine 2</MenuItem>
-                        <MenuItem onClick={handleSelect}>machine 3</MenuItem>
+                        <MenuItem onClick={handleSelect}>P01</MenuItem>
+                        <MenuItem onClick={handleSelect}>P02</MenuItem>
                     </Menu>
                 </div>
             </Grid>
@@ -78,10 +77,10 @@ function RealTimeMonitoring() {
                             label="time_interval"
                             onChange={handleChange}
                         >
-                            <MenuItem value={1}>One</MenuItem>
-                            <MenuItem value={2}>Two</MenuItem>
-                            <MenuItem value={4}>Four</MenuItem>
-                            <MenuItem value={6}>Six</MenuItem>
+                            <MenuItem value={1}>1 Hour</MenuItem>
+                            <MenuItem value={2}>2 Hours</MenuItem>
+                            <MenuItem value={4}>4 Hours</MenuItem>
+                            <MenuItem value={6}>6 Hours</MenuItem>
                         </Select>
                     </FormControl>
                 </FormControl>
