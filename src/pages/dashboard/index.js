@@ -100,6 +100,10 @@ const DashboardDefault = () => {
 
     const [flag, setFlag] = useState(false);
 
+    const [first, setFirst] = useState(true);
+
+    const [factory_energy, setFactoryEnergy] = useState(0);
+
     const update_chart = (chart_data, new_value)=>{
         let new_data = [...chart_data, new_value];
         new_data.shift();
@@ -121,48 +125,86 @@ const DashboardDefault = () => {
         return array;
     };
 
+    const asset = 'P01';
+    function startup(){
+      console.log("startup");
+      fetch('/get_machines').then(res => res = res.json()).then(data => {
+        if(data.length > 1)
+          setFlag(true);
+
+      });
+      fetch('/get_real_time_data?' + new URLSearchParams({asset: asset, index: time_point})).then(res => res = res.json()).then(data => {
+          var energy_avg = data[0].power_avg;
+          var idle = 100 - data[0].idle_time;
+          var piece_count = data[0].items;
+          setTimePoint(time_point + 1);
+
+          setChartEnergy(update_chart(chart_energy, energy_avg));
+          setChartPieceCount(update_chart(chart_piece_count, piece_count));
+          setChartIdle(update_chart(chart_idle, idle));
+
+          var donut_data = generate_donut_data(energy_avg);
+          update_donut_chart(donut_data);
+      });
+      if (flag){
+        fetch('/get_real_time_data?' + new URLSearchParams({asset: asset, index: time_point_2})).then(res => res = res.json()).then(data => {
+            var energy_avg = data[0].power_avg;
+            var idle = 100 - data[0].idle_time;
+            var piece_count = data[0].items;
+            setTimePoint2(time_point_2 + 1);
+
+            setChartEnergy2(update_chart(chart_energy_2, energy_avg));
+            setChartPieceCount2(update_chart(chart_piece_count_2, piece_count));
+            setChartIdle2(update_chart(chart_idle_2, idle));
+
+            var donut_data = generate_donut_data(energy_avg);
+            update_donut_chart(donut_data);
+        });
+      }
+    }
+
+
     useEffect(() => {
-        var asset= 'P01';
+        if(first){
+          startup();
+          setFirst(false);
+        }
         const interval = setInterval(() => {
-            fetch('/get_machines').then(res => res = res.json()).then(data => {
-              if(data.length > 1)
-                setFlag(true);
-
-            });
-            fetch('/get_real_time_data?' + new URLSearchParams({asset: asset, index: time_point})).then(res => res = res.json()).then(data => {
-                var energy_avg = data[0].power_avg;
-                var idle = 100 - data[0].idle_time;
-                var piece_count = data[0].items;
-                setTimePoint(time_point + 1);
-
-                setChartEnergy(update_chart(chart_energy, energy_avg));
-                setChartPieceCount(update_chart(chart_piece_count, piece_count));
-                setChartIdle(update_chart(chart_idle, idle));
-
-                var donut_data = generate_donut_data(energy_avg);
-                update_donut_chart(donut_data);
-            });
-            fetch('/get_real_time_data?' + new URLSearchParams({asset: asset, index: time_point_2})).then(res => res = res.json()).then(data => {
-                var energy_avg = data[0].power_avg;
-                var idle = 100 - data[0].idle_time;
-                var piece_count = data[0].items;
-                setTimePoint2(time_point_2 + 1);
-
-                setChartEnergy2(update_chart(chart_energy_2, energy_avg));
-                setChartPieceCount2(update_chart(chart_piece_count_2, piece_count));
-                setChartIdle2(update_chart(chart_idle_2, idle));
-
-                var donut_data = generate_donut_data(energy_avg);
-                update_donut_chart(donut_data);
-            });
+          startup();
         }, 1000);
+        setFactoryEnergy((parseFloat(chart_energy.at(-1)) + parseFloat(chart_energy_2.at(-1))).toFixed(2));
         return ()=>{
             clearInterval(interval);
         }
+
     }, [time_point, time_point_2]);
 
     return (
         <Grid container rowSpacing={3.5} columnSpacing={2.75}>
+
+          <Grid item xs={12}>
+            <Typography variant="h5">FACTORY</Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <AnalyticEcommerce id = {"total_energy"} title="Energy Usage (kWh)" count={factory_energy.toString()} />
+          </Grid>
+          <Grid item xs={3}>
+            <AnalyticEcommerce id = {"FIX"} title="Activity" count={"100% (I'm not real..)"} />
+          </Grid>
+          <Grid item xs={3}>
+            <AnalyticEcommerce id = {"FIX"} title="Products made" count={"100M (I'm not real..)"} />
+          </Grid>
+          <Grid item xs={3}>
+            <AnalyticEcommerce id = {"FIX"} title="Price per product" count={"$5.79(I'm not real..)"} />
+          </Grid>
+
+          <Grid item xs={4}>
+              <AnalyticEcommerce id = {"total_products"} analytics={true} title="Cycle Time of PP1 (sec)" type="saved" count="40,236" isLoss color="warning" percentage={14.6} extra="3,000" />
+          </Grid>
+
+          <Grid item xs={4}>
+              <AnalyticEcommerce id={"total_energy"} analytics={true} title="Energy Consumed in PP2 (kWh)" type="saved" count="2,549" percentage={18} extra="300" />
+          </Grid>
 
           <Grid item xs={12}>
             <Typography variant="h5">P01</Typography>
@@ -216,14 +258,6 @@ const DashboardDefault = () => {
                 <DonutChart series={donut_chart_data} machines={['machine1', 'machine2']} id={"energy_consumption"}/>
             </Item>
           </Grid>}
-
-          <Grid item xs={4}>
-              <AnalyticEcommerce id = {"total_products"} title="Cycle Time of PP1 (sec)" type="saved" count="40,236" isLoss color="warning" percentage={14.6} extra="3,000" />
-          </Grid>
-
-          <Grid item xs={4}>
-              <AnalyticEcommerce id={"total_energy"} title="Energy Consumed in PP2 (kWh)" type="saved" count="2,549" percentage={18} extra="300" />
-          </Grid>
 
         </Grid>
     );

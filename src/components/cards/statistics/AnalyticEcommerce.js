@@ -21,7 +21,7 @@ import { RiseOutlined, FallOutlined } from '@ant-design/icons';
 
 
 
-function AnalyticEcommerce ({ id, color, title, count, percentage, isLoss, type, extra }) {
+function AnalyticEcommerce ({ id, color, analytics, title, count, percentage, type, isLoss, extra }) {
     const [context_menu, setContextMenu] = useState(null);
 
     const handleClose = () => {
@@ -61,7 +61,7 @@ function AnalyticEcommerce ({ id, color, title, count, percentage, isLoss, type,
             </Typography>
             <Grid container alignItems="center">
                 <Grid item>
-                    <Typography variant="h4" color="inherit">
+                    <Typography variant="h4" color="inherit" sx={{fontWeight: 'bolder'}}>
                         {count}
                     </Typography>
                 </Grid>
@@ -84,15 +84,15 @@ function AnalyticEcommerce ({ id, color, title, count, percentage, isLoss, type,
                 )}
             </Grid>
         </Stack>
-        <Box sx={{ pt: 2.25 }}>
+        {analytics &&  <Box sx={{ pt: 2.25 }}>
             <Typography variant="caption" color="textSecondary">
                 You {type} an extra{' '}
-                <Typography component="span" variant="caption" sx={{ color: `${color || 'primary'}.main` }}>
+                <Typography component="span" variant="caption" sx={{ color: `${color || 'primary'}.main`}}>
                     {extra}
                 </Typography>{' '}
                 during last turn
             </Typography>
-        </Box>
+        </Box>}
     </MainCard>
   </div>
 }
