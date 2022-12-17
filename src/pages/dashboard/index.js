@@ -103,6 +103,7 @@ const DashboardDefault = () => {
     const [first, setFirst] = useState(true);
 
     const [factory_energy, setFactoryEnergy] = useState(0);
+    const [factory_products, setFactoryProducts] = useState(0);
 
     const update_chart = (chart_data, new_value)=>{
         let new_data = [...chart_data, new_value];
@@ -126,8 +127,8 @@ const DashboardDefault = () => {
     };
 
     const asset = 'P01';
+
     function startup(){
-      console.log("startup");
       fetch('/get_machines').then(res => res = res.json()).then(data => {
         if(data.length > 1)
           setFlag(true);
@@ -173,6 +174,7 @@ const DashboardDefault = () => {
           startup();
         }, 1000);
         setFactoryEnergy((parseFloat(chart_energy.at(-1)) + parseFloat(chart_energy_2.at(-1))).toFixed(2));
+        setFactoryProducts(parseFloat(chart_piece_count.at(-1)+chart_piece_count_2.at(-1)));
         return ()=>{
             clearInterval(interval);
         }
@@ -192,7 +194,7 @@ const DashboardDefault = () => {
             <AnalyticEcommerce id = {"FIX"} title="Activity" count={"100% (I'm not real..)"} />
           </Grid>
           <Grid item xs={3}>
-            <AnalyticEcommerce id = {"FIX"} title="Products made" count={"100M (I'm not real..)"} />
+            <AnalyticEcommerce id = {"FIX"} title="Products made" count={factory_products.toString()} />
           </Grid>
           <Grid item xs={3}>
             <AnalyticEcommerce id = {"FIX"} title="Price per product" count={"$5.79(I'm not real..)"} />
