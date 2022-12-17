@@ -174,7 +174,7 @@ const DashboardDefault = () => {
           startup();
         }, 1000);
         setFactoryEnergy((parseFloat(chart_energy.at(-1)) + parseFloat(chart_energy_2.at(-1))).toFixed(2));
-        setFactoryProducts(parseFloat(chart_piece_count.at(-1)+chart_piece_count_2.at(-1)));
+        setFactoryProducts(parseFloat(factory_products+chart_piece_count.at(-1)+chart_piece_count_2.at(-1)));
         return ()=>{
             clearInterval(interval);
         }
