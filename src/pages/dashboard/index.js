@@ -143,23 +143,17 @@ const DashboardDefault = () => {
           setChartEnergy(update_chart(chart_energy, energy_avg));
           setChartPieceCount(update_chart(chart_piece_count, piece_count));
           setChartIdle(update_chart(chart_idle, idle));
-
-          var donut_data = generate_donut_data(energy_avg);
-          update_donut_chart(donut_data);
       });
       if (flag){
         fetch('/get_real_time_data?' + new URLSearchParams({asset: asset, index: time_point_2})).then(res => res = res.json()).then(data => {
-            var energy_avg = data[0].power_avg;
+            var energy_avg_2 = data[0].power_avg;
             var idle = 100 - data[0].idle_time;
             var piece_count = data[0].items;
             setTimePoint2(time_point_2 + 1);
 
-            setChartEnergy2(update_chart(chart_energy_2, energy_avg));
+            setChartEnergy2(update_chart(chart_energy_2, energy_avg_2));
             setChartPieceCount2(update_chart(chart_piece_count_2, piece_count));
             setChartIdle2(update_chart(chart_idle_2, idle));
-
-            var donut_data = generate_donut_data(energy_avg);
-            update_donut_chart(donut_data);
         });
       }
     }
@@ -173,8 +167,14 @@ const DashboardDefault = () => {
         const interval = setInterval(() => {
           startup();
         }, 1000);
-        setFactoryEnergy((parseFloat(chart_energy.at(-1)) + parseFloat(chart_energy_2.at(-1))).toFixed(2));
+
+        var chart_energy_num = parseFloat(chart_energy.at(-1)).toFixed(0);
+        var chart_energy_2_num = parseFloat(chart_energy_2.at(-1)).toFixed(0);
+
+        setFactoryEnergy(parseFloat(chart_energy_num) + parseFloat(chart_energy_2_num));
         setFactoryProducts(parseFloat(factory_products+chart_piece_count.at(-1)+chart_piece_count_2.at(-1)));
+
+        update_donut_chart(new Array(parseFloat(chart_energy_num), parseFloat(chart_energy_2_num)));
         return ()=>{
             clearInterval(interval);
         }
