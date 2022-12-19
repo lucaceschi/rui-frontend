@@ -86,11 +86,11 @@ const DashboardDefault = () => {
     const [value, setValue] = useState('today');
     const [slot, setSlot] = useState('week');
     const [chart_energy, setChartEnergy] = useState(new Array(20).fill(0));
-    const [chart_idle, setChartIdle] = useState(new Array(20).fill(0));
+    const [chart_activity_1, setChartActivity1] = useState(new Array(20).fill(0));
     const [chart_piece_count, setChartPieceCount] = useState(new Array(20).fill(0));
 
     const [chart_energy_2, setChartEnergy2] = useState(new Array(20).fill(0));
-    const [chart_idle_2, setChartIdle2] = useState(new Array(20).fill(0));
+    const [chart_activity_2, setChartActivity2] = useState(new Array(20).fill(0));
     const [chart_piece_count_2, setChartPieceCount2] = useState(new Array(20).fill(0));
 
     const[time_point, setTimePoint] = useState(1);
@@ -104,6 +104,7 @@ const DashboardDefault = () => {
 
     const [factory_energy, setFactoryEnergy] = useState(0);
     const [factory_products, setFactoryProducts] = useState(0);
+    const [factory_activity, setFactoryActivity] = useState(0);
 
     const update_chart = (chart_data, new_value)=>{
         let new_data = [...chart_data, new_value];
@@ -135,25 +136,25 @@ const DashboardDefault = () => {
 
       });
       fetch('/get_real_time_data?' + new URLSearchParams({asset: asset, index: time_point})).then(res => res = res.json()).then(data => {
-          var energy_avg = data[0].power_avg;
-          var idle = 100 - data[0].idle_time;
+          var energy_avg = parseFloat(data[0].power_avg).toFixed(0);
+          var activity_1 = 100 - data[0].idle_time;
           var piece_count = data[0].items;
           setTimePoint(time_point + 1);
 
           setChartEnergy(update_chart(chart_energy, energy_avg));
           setChartPieceCount(update_chart(chart_piece_count, piece_count));
-          setChartIdle(update_chart(chart_idle, idle));
+          setChartActivity1(update_chart(chart_activity_1, activity_1));
       });
       if (flag){
         fetch('/get_real_time_data?' + new URLSearchParams({asset: asset, index: time_point_2})).then(res => res = res.json()).then(data => {
-            var energy_avg_2 = data[0].power_avg;
-            var idle = 100 - data[0].idle_time;
+            var energy_avg_2 = parseFloat(data[0].power_avg).toFixed(0);
+            var activity_2 = 100 - data[0].idle_time;
             var piece_count = data[0].items;
             setTimePoint2(time_point_2 + 1);
 
             setChartEnergy2(update_chart(chart_energy_2, energy_avg_2));
             setChartPieceCount2(update_chart(chart_piece_count_2, piece_count));
-            setChartIdle2(update_chart(chart_idle_2, idle));
+            setChartActivity2(update_chart(chart_activity_2, activity_2));
         });
       }
     }
@@ -170,9 +171,9 @@ const DashboardDefault = () => {
 
         var chart_energy_num = parseFloat(chart_energy.at(-1)).toFixed(0);
         var chart_energy_2_num = parseFloat(chart_energy_2.at(-1)).toFixed(0);
-
         setFactoryEnergy(parseFloat(chart_energy_num) + parseFloat(chart_energy_2_num));
         setFactoryProducts(parseFloat(factory_products+chart_piece_count.at(-1)+chart_piece_count_2.at(-1)));
+        setFactoryActivity((parseFloat(chart_activity_1.at(-1))+parseFloat(chart_activity_2.at(-1)))/2);
 
         update_donut_chart(new Array(parseFloat(chart_energy_num), parseFloat(chart_energy_2_num)));
         return ()=>{
@@ -188,13 +189,13 @@ const DashboardDefault = () => {
             <Typography variant="h5">FACTORY</Typography>
           </Grid>
           <Grid item xs={3}>
-            <AnalyticEcommerce id = {"total_energy"} title="Energy Usage (kWh)" count={factory_energy.toString()} />
+            <AnalyticEcommerce id = {"total_energy_factory"} title="Energy Usage (kWh)" count={factory_energy.toString()} />
           </Grid>
           <Grid item xs={3}>
-            <AnalyticEcommerce id = {"FIX"} title="Activity" count={"100% (I'm not real..)"} />
+            <AnalyticEcommerce id = {"activity_factory"} title="Activity (%)" count={factory_activity.toString()} />
           </Grid>
           <Grid item xs={3}>
-            <AnalyticEcommerce id = {"FIX"} title="Products made" count={factory_products.toString()} />
+            <AnalyticEcommerce id = {"total_products_factory"} title="Products made" count={factory_products.toString()} />
           </Grid>
           <Grid item xs={3}>
             <AnalyticEcommerce id = {"FIX"} title="Price per product" count={"$5.79(I'm not real..)"} />
@@ -208,14 +209,14 @@ const DashboardDefault = () => {
           </Grid>}
 
           <Grid item xs={4}>
-              <AnalyticEcommerce id = {"total_products"} analytics={true} title="Cycle Time of PP1 (sec)" type="saved" count="40,236" isLoss color="warning" percentage={14.6} extra="3,000" />
+              <AnalyticEcommerce id = {"cycle_time_PP1"} analytics={true} title="Cycle Time of PP1 (sec)" type="saved" count="40,236" isLoss color="warning" percentage={14.6} extra="3,000" />
               <br/>
-              <AnalyticEcommerce id={"total_energy"} analytics={true} title="Energy Consumed in PP2 (kWh)" type="saved" count="2,549" percentage={18} extra="300" />
+              <AnalyticEcommerce id={"energy_PP2"} analytics={true} title="Energy Consumed in PP2 (kWh)" type="saved" count="2,549" percentage={18} extra="300" />
           </Grid>
           <Grid item xs={4}>
-              <AnalyticEcommerce id = {"total_products"} analytics={true} title="Energy Consumed of PP1 (sec)" type="saved" count="40,236" isLoss color="warning" percentage={14.6} extra="3,000" />
+              <AnalyticEcommerce id = {"energy_PP1"} analytics={true} title="Energy Consumed of PP1 (sec)" type="saved" count="40,236" isLoss color="warning" percentage={14.6} extra="3,000" />
               <br/>
-              <AnalyticEcommerce id={"total_energy"} analytics={true} title="Cycle Time of PP2 (kWh)" type="saved" count="2,549" percentage={18} extra="300" />
+              <AnalyticEcommerce id={"cycle_time_PP2"} analytics={true} title="Cycle Time of PP2 (kWh)" type="saved" count="2,549" percentage={18} extra="300" />
           </Grid>
 
           <Grid item xs={12}>
@@ -230,7 +231,7 @@ const DashboardDefault = () => {
 
           <Grid item xs={4}>
               <Item className={'rep'}>
-                  <SLChart data={chart_idle} series_type={'Activity (%)'} id={"activity_machine1"}/>
+                  <SLChart data={chart_activity_1} series_type={'Activity (%)'} id={"activity_machine1"}/>
               </Item>
           </Grid>
 
@@ -253,7 +254,7 @@ const DashboardDefault = () => {
 
           {flag && <Grid item xs={4}>
               <Item className={'rep'}>
-                  <SLChart data={chart_idle_2} series_type={'Activity (%)'} id={"activity_machine2"}/>
+                  <SLChart data={chart_activity_2} series_type={'Activity (%)'} id={"activity_machine2"}/>
               </Item>
           </Grid>}
 
