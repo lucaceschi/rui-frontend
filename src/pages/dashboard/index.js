@@ -209,14 +209,14 @@ const DashboardDefault = () => {
           </Grid>}
 
           <Grid item xs={4}>
-              <AnalyticEcommerce id = {"cycle_time_PP1"} analytics={true} title="Cycle Time of PP1 (sec)" type="saved" count="40,236" isLoss color="warning" percentage={14.6} extra="3,000" />
+              <AnalyticEcommerce id = {"cycle_time_PP1"} analytics={true} title="Cycle Time of PP1 (sec)" type="saved" count="40" percentage={7.5} extra="3" />
               <br/>
-              <AnalyticEcommerce id={"energy_PP2"} analytics={true} title="Energy Consumed in PP2 (kWh)" type="saved" count="2,549" percentage={18} extra="300" />
+              <AnalyticEcommerce id={"energy_PP2"} analytics={true} title="Energy Consumed in PP2 (kWh)" type="saved" count="2549" percentage={11.7} extra="300" />
           </Grid>
           <Grid item xs={4}>
-              <AnalyticEcommerce id = {"energy_PP1"} analytics={true} title="Energy Consumed of PP1 (sec)" type="saved" count="40,236" isLoss color="warning" percentage={14.6} extra="3,000" />
+              <AnalyticEcommerce id = {"energy_PP1"} analytics={true} title="Energy Consumed of PP1 (sec)" type="saved" count="2549" percentage={11.7} extra="300" />
               <br/>
-              <AnalyticEcommerce id={"cycle_time_PP2"} analytics={true} title="Cycle Time of PP2 (kWh)" type="saved" count="2,549" percentage={18} extra="300" />
+              <AnalyticEcommerce id={"cycle_time_PP2"} analytics={true} title="Cycle Time of PP2 (kWh)" type="saved" count="20" percentage={7.5} extra="1.5" />
           </Grid>
 
           <Grid item xs={12}>
