@@ -192,7 +192,7 @@ const DashboardDefault = () => {
             <AnalyticEcommerce id = {"total_energy_factory"} title="Energy Usage (kWh)" count={factory_energy.toString()} />
           </Grid>
           <Grid item xs={3}>
-            <AnalyticEcommerce id = {"activity_factory"} title="Activity (%)" count={factory_activity.toString()} />
+            <AnalyticEcommerce id = {"activity_factory"} title="Activity (%)" isActivity={true} count={factory_activity.toString()} />
           </Grid>
           <Grid item xs={3}>
             <AnalyticEcommerce id = {"total_products_factory"} title="Products made" count={factory_products.toString()} />
