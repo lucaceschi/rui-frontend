@@ -11,22 +11,6 @@ import NumberFormat from 'react-number-format';
 // project import
 import Dot from 'components/@extended/Dot';
 
-function createData(idMachine, name, type, partProgram) {
-    return { idMachine, name, type, partProgram };
-}
-
-const rows = [
-    createData(84564564, 'Camera Lens', 40, 2),
-    createData(98764564, 'Laptop', 300, 0),
-    createData(98756325, 'Mobile', 355, 1),
-    createData(98652366, 'Handset', 50, 1),
-    createData(13286564, 'Computer Accessories', 100, 1),
-    createData(86739658, 'TV', 99, 0),
-    createData(13256498, 'Keyboard', 125, 2),
-    createData(98753263, 'Mouse', 89, 2),
-    createData(98753275, 'Desktop', 185, 1),
-    createData(98753291, 'Chair', 100, 0)
-];
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -58,28 +42,22 @@ function stableSort(array, comparator) {
 
 const headCells = [
     {
-        id: 'idMachine',
-        align: 'left',
-        disablePadding: false,
-        label: 'ID'
-    },
-    {
-        id: 'name',
+        id: 'shift_name',
         align: 'left',
         disablePadding: true,
-        label: 'Machine Name'
+        label: 'Shift Name'
     },
     {
-        id: 'type',
-        align: 'right',
+        id: 'shift_time',
+        align: 'left',
         disablePadding: false,
-        label: 'Machine Type'
+        label: 'Shift Time'
     }
 ];
 
 // ==============================|| ORDER TABLE - HEADER ||============================== //
 
-function OrderTableHead({ order, orderBy }) {
+function ShiftsTableHead({ order, orderBy}) {
     return (
         <TableHead>
             <TableRow>
@@ -98,14 +76,14 @@ function OrderTableHead({ order, orderBy }) {
     );
 }
 
-OrderTableHead.propTypes = {
+ShiftsTableHead.propTypes = {
     order: PropTypes.string,
     orderBy: PropTypes.string
 };
 
 // ==============================|| ORDER TABLE ||============================== //
 
-export default function OrderTable(rowsData) {
+export default function ShiftsTable(rowsData) {
     const [order] = useState('asc');
     const [orderBy] = useState('idMachine');
     const [selected] = useState([]);
@@ -135,7 +113,7 @@ export default function OrderTable(rowsData) {
                         }
                     }}
                 >
-                    <OrderTableHead order={order} orderBy={orderBy} />
+                    <ShiftsTableHead order={order} orderBy={orderBy}/>
                     <TableBody>
                         {stableSort(rowsData.rows, getComparator(order, orderBy)).map((row, index) => {
                             const isItemSelected = isSelected(row.id);

@@ -114,7 +114,7 @@ function DataHistory() {
                         <CardContent>
                             <Typography variant="overline" gutterBottom>
                                 { isMachineLoading && <Loader/> }
-                                { isMachineLoading? 
+                                { isMachineLoading?
                                     <LoadingOutlined style={{'verticalAlign':'0.05em', 'margin': '0 6px 0 0'}}/>
                                 :
                                     <SettingOutlined style={{'verticalAlign':'0.05em', 'margin': '0 6px 0 0'}}/>
