@@ -83,7 +83,8 @@ function Customization() {
     }
 
     const addMachine = () => {
-      fetch('/save_machine_and_machine_type?' + new URLSearchParams({asset: machine_name, machine_type: type})).then(res => res = res.json()).then(data => {
+      console.log(machine_name);
+      fetch('/save_machine_and_machine_type?' + new URLSearchParams({asset: machine_name, machine_type: machine_type})).then(res => res = res.json()).then(data => {
       });
       Swal.fire({
         icon: 'success',
