@@ -3,13 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="84d11ce4-7997-48dc-8609-bda35279c5a5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rui_components/Alarms.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rui_components/Alarms.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rui_components/EnergyActivityGraph.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rui_components/EnergyActivityGraph.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rui_components/MachineRealTime.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rui_components/MachineRealTime.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rui_components/PieceCount.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rui_components/PieceCount.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/menu-items/factory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/menu-items/factory.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/rui/RealTimeMonitoring.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/rui/RealTimeMonitoring.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layout/MainLayout/Header/HeaderContent/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/MainLayout/Header/HeaderContent/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/rui/DataHistoryA.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/rui/DataHistoryA.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/utilsPdf.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/utilsPdf.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,6 +78,9 @@
       <workItem from="1669207570695" duration="393000" />
       <workItem from="1669214436438" duration="1003000" />
       <workItem from="1669279188517" duration="17069000" />
+      <workItem from="1671723302051" duration="4261000" />
+      <workItem from="1671978055556" duration="7537000" />
+      <workItem from="1672065143764" duration="6131000" />
     </task>
     <servers />
   </component>
